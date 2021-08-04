@@ -1,0 +1,33 @@
+﻿* = Possible implementation
+** = Need to implement
+
+Volunteer
+	- VolunteerID (PK, int, Identity(1,1))
+	- FirstName (nvarchar(50), NULL)
+	- LastName (nvarchar(50), NULL)
+	- Username (nvarchar(20))
+	- Password (nvarchar(MAX))
+	- FirstName (nvarchar(MAX))
+	- Email (nvarchar(50), NULL)
+
+	* - SkillsInterests (nvarchar(2000))
+	* - EducationalBackground (nvarchar(2000))
+	* - CurrentLicenses (nvarchar(2000))
+
+	** - DLOnFile (bit)
+	** - SSOnFile (bit)
+	** - ApprovalStatus (nvarchar(15))
+
+VolunteerAddress
+	- VolunteerAddressID (PK, int, Identity(1,1))
+	- VolunteerID (FK, int, Volunteer.VolunteerID)
+	- Address1 (nvarchar(200))
+	- Address2 (nvarchar(200), NULL)
+	- Address3 (nvarchar(200), NULL)
+	- City (nvarchar(100))
+	- State (nvarchar(2))
+	- Zip (nvarchar(5))
+
+VolunteerSchedule
+VolunteerContact
+VolunteerEmergency
