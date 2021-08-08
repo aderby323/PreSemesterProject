@@ -10,7 +10,7 @@ namespace PreSemesterProject.Controllers
     {
         public IActionResult Index()
         {
-            return Ok("Opportunities");
+            return Ok("Test");
         }
     }
 }
