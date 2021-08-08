@@ -69,3 +69,15 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* manually added style elements */
+
+.action-box {
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.action-box:hover {
+    background-color: #eee;
+}

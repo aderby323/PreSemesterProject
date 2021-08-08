@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PreSemesterProject.Services;
+using PreSemesterProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,17 @@ namespace PreSemesterProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdminRole",
+                    policy => policy.RequireRole("Admin"));
+            });
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "VMS.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +57,10 @@ namespace PreSemesterProject
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

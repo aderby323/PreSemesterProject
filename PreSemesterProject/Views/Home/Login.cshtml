@@ -1,0 +1,16 @@
+﻿@model PreSemesterProject.Models.ViewModels.LoginViewModel
+<h2>Login</h2>
+
+<div class="container">
+    <form asp-action="Login" method="post">
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label">Username</label>
+            <input asp-for="Username" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

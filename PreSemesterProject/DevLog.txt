@@ -1,4 +1,5 @@
-﻿* = Possible implementation
+﻿/// Database ///
+* = Possible implementation
 ** = Need to implement
 
 Volunteer
@@ -10,9 +11,14 @@ Volunteer
 	- FirstName (nvarchar(MAX))
 	- Email (nvarchar(50), NULL)
 
+	* - PreferredCenters (nvarchar(2000))
 	* - SkillsInterests (nvarchar(2000))
 	* - EducationalBackground (nvarchar(2000))
 	* - CurrentLicenses (nvarchar(2000))
+	* - Availability (nvarchar(2000))
+	* - HomePhone (nvarchar(12), NULL)
+	* - WorkPhone (nvarchar(12), NULL)
+	* - CellPhone (nvarchar(12), NULL)
 
 	** - DLOnFile (bit)
 	** - SSOnFile (bit)
@@ -28,6 +34,11 @@ VolunteerAddress
 	- State (nvarchar(2))
 	- Zip (nvarchar(5))
 
-VolunteerSchedule
-VolunteerContact
-VolunteerEmergency
+VolunteerEmergencyContact
+	- VolunteerID (FK, int Volunteer.VolunteerID)
+	- EContactName (nvarchar(200))
+	- EContactHomePhone (nvarchar(12), NULL)
+	- EContactWorkPhone (nvarchar(12), NULL)
+	- EContactEmail (nvarchar(50), NULL)
+	- EContactAddress ???
+/// End Database ///
