@@ -10,7 +10,9 @@ namespace PreSemesterProject.Controllers
     {
         public IActionResult Index()
         {
-            return Ok("Volunteers");
+            //return Ok("Volunteers");
+            return View("~/Views/Volunteers.cshtml");
         }
+
     }
 }
