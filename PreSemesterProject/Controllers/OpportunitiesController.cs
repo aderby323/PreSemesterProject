@@ -8,9 +8,10 @@ namespace PreSemesterProject.Controllers
 {
     public class OpportunitiesController : Controller
     {
+        
         public IActionResult Index()
         {
-            return Ok("Test");
+            return Ok("Opportunities");
         }
     }
 }
