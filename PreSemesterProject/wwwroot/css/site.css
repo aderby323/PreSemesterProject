@@ -81,3 +81,28 @@ body {
 .action-box:hover {
     background-color: #eee;
 }
+
+.options-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.opportunity-option {
+    border: 1px black solid;
+    font-size: 14px;
+    margin-left: 5px;
+    padding: 5px 10px
+}
+
+.opportunity-option:nth-child(1) {
+    margin-left: 0;
+}
+
+.opportunity-option:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.opportunities-table {
+    margin-top: 20px;
+}

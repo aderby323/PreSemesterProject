@@ -1,0 +1,35 @@
+﻿@model List<PreSemesterProject.Models.Opportunity>
+
+<div class="container">
+    <h2>Opportunities</h2>
+</div>
+
+<div class="container">
+    <div class="options-container">
+        <div class="opportunity-option">Change Opportunity Filter</div>
+        <div class="opportunity-option">Search Opportunity</div>
+        <div class="opportunity-option">View Volunteer Opportunity Matches</div>
+        <div class="opportunity-option">Edit Opportunity</div>
+        <div class="opportunity-option">Add New Opportunity</div>
+        <div class="opportunity-option">Delete Opportunity</div>
+    </div>
+    <table class="opportunities-table">
+        <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Location</td>
+            <td>Date</td>
+        </tr>
+        @foreach(var x in Model)
+        {
+        <tr>
+            <td>@x.OpportunityID</td>
+            <td>@x.Title</td>
+            <td>@x.Description</td>
+            <td>@x.Location</td>
+            <td>@x.ModifiedOn</td>
+        </tr>
+        }
+    </table>
+</div>
