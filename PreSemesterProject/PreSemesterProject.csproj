@@ -7,13 +7,9 @@
 
   <ItemGroup>
     <Compile Remove="Views\Opportunities\**" />
-    <Compile Remove="Views\Volunteers\**" />
     <Content Remove="Views\Opportunities\**" />
-    <Content Remove="Views\Volunteers\**" />
     <EmbeddedResource Remove="Views\Opportunities\**" />
-    <EmbeddedResource Remove="Views\Volunteers\**" />
     <None Remove="Views\Opportunities\**" />
-    <None Remove="Views\Volunteers\**" />
   </ItemGroup>
 
   <ItemGroup>

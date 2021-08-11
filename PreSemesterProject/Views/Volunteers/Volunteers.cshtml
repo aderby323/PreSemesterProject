@@ -1,0 +1,71 @@
+﻿@page
+@model PreSemesterProject.Views.VolunteersModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    <div>
+        <center>
+            <h2>
+                <strong>
+                    Volunteer Options
+                </strong>
+            </h2>
+        </center>
+
+
+        <div class="float-left">
+            @Html.ActionLink("Change Volunteer Filter", "Index", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
+            @Html.ActionLink("Search Volunteers", "Index", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
+            @Html.ActionLink("View Volunteer Opportunity Matches", "Index", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
+            @Html.ActionLink("Edit Volunteer", "Index", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
+            @Html.ActionLink("Add New Volunteer", "Index", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
+        </div>
+
+    
+
+       
+
+        <p>
+            <center>
+
+                <br />
+                <br />
+
+                <ol>
+                    <li>
+                        Volunteer name
+                    </li>
+
+                    <li>
+                        Volunteer name
+                    </li>
+
+                    <li>
+                        Volunteer name
+                    </li>
+
+                    <li>
+                        Volunteer name
+                    </li>
+
+                    <li>
+                        Volunteer name
+                    </li>
+                </ol>
+
+            </center>
+        </p>
+        
+
+
+
+
+
+
+
+    </div>
+
+
+
+}
