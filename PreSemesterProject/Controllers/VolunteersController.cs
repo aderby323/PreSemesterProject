@@ -14,5 +14,11 @@ namespace PreSemesterProject.Controllers
             return View("~/Views/Volunteers/Volunteers.cshtml");
         }
 
+        public IActionResult ChangeFilter()
+        {
+            //return Ok("Volunteers");
+            return View("~/Views/Volunteers/Volunteers.cshtml");
+        }
+
     }
 }
