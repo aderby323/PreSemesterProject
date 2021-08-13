@@ -11,8 +11,8 @@ namespace PreSemesterProject.Controllers
     {
 
         private List<Opportunity> _opportunities = new List<Opportunity>();
-        
-        public IActionResult Index()
+
+        public OpportunitiesController()
         {
             _opportunities.Add(new Opportunity()
             {
@@ -20,7 +20,7 @@ namespace PreSemesterProject.Controllers
                 Title = "Opportunity 1",
                 Description = "This is the first opportunity. There isn't much to do but that's ok! :)",
                 Location = "Avenues",
-                ModifiedOn = DateTime.UtcNow
+                ModifiedOn = new DateTime(2021,8,2)
             });
             _opportunities.Add(new Opportunity()
             {
@@ -28,17 +28,46 @@ namespace PreSemesterProject.Controllers
                 Title = "Opportunity 2",
                 Description = "This is the second opportunity. Just another plain ol opportunity",
                 Location = "UNF",
-                ModifiedOn = DateTime.UtcNow.AddDays(3)
-            }); ;
+                ModifiedOn = new DateTime(2021, 6, 9)
+            });
             _opportunities.Add(new Opportunity()
             {
                 OpportunityID = 3,
                 Title = "Opportunity 3",
                 Description = "This is the third opportunity. Yet another opportunity for a time of thrills and things and such.",
                 Location = "Southside",
-                ModifiedOn = DateTime.UtcNow.AddHours(5)
+                ModifiedOn = new DateTime(2020,1,4)
             });
+        }
+        
+        public IActionResult Index()
+        {
             return View(_opportunities);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Opportunity opportunity = _opportunities.Where(x => x.OpportunityID == id).FirstOrDefault();
+
+            if(opportunity is null) { return NotFound($"Opportunity with ID: {id} not found."); }
+
+            return View(opportunity);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Opportunity opportunity)
+        {
+            if (!ModelState.IsValid) { return BadRequest(); }
+
+            return Ok(opportunity);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            return Ok(id);
+        }
     }
+
 }

@@ -41,4 +41,11 @@ VolunteerEmergencyContact
 	- EContactWorkPhone (nvarchar(12), NULL)
 	- EContactEmail (nvarchar(50), NULL)
 	- EContactAddress ???
-/// End Database ///
+
+
+/// Color Scheme (Dark to Light) ///
+	#6a64ed
+	#647aed
+	#6495ed
+	#64b0ed
+	#64cced

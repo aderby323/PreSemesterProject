@@ -1,4 +1,15 @@
 ﻿@model List<PreSemesterProject.Models.Opportunity>
+@functions{
+    public List<PreSemesterProject.Models.Opportunity> filterByRecent()
+    {
+        return Model;
+    }
+
+    public List<PreSemesterProject.Models.Opportunity> filterByLocation()
+    {
+        return Model.OrderBy(x => x.Location).ToList();
+    }
+}
 
 <div class="container">
     <h2>Opportunities</h2>
@@ -6,29 +17,43 @@
 
 <div class="container">
     <div class="options-container">
-        <div class="opportunity-option">Change Opportunity Filter</div>
-        <div class="opportunity-option">Search Opportunity</div>
-        <div class="opportunity-option">View Volunteer Opportunity Matches</div>
-        <div class="opportunity-option">Edit Opportunity</div>
-        <div class="opportunity-option">Add New Opportunity</div>
-        <div class="opportunity-option">Delete Opportunity</div>
+        <div class="dropdown">
+            <div class="opportunity-option dropdown-toggle" id="opportunityFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Change Opportunity Filter
+            </div>
+            <div class="dropdown-menu" aria-labelledby="opportunityFilter">
+                <a class="dropdown-item" href="#">Most Recent (60 days)</a>
+                <a class="dropdown-item" onclick="@filterByLocation();">By Center</a>
+            </div>
+        </div>
+        <div class="opportunity-option">
+            Search Opportunity
+        </div>
+        <div class="opportunity-option">
+            View Volunteer Opportunity
+        </div>
+        <div class="opportunity-option" style="margin-left: auto">
+            Add New Opportunity
+        </div>
     </div>
     <table class="opportunities-table">
         <tr>
-            <td>ID</td>
-            <td>Title</td>
-            <td>Description</td>
-            <td>Location</td>
-            <td>Date</td>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Options</th>
         </tr>
         @foreach(var x in Model)
         {
         <tr>
-            <td>@x.OpportunityID</td>
             <td>@x.Title</td>
             <td>@x.Description</td>
             <td>@x.Location</td>
             <td>@x.ModifiedOn</td>
+            <td><a type="button" class="btn btn-outline-info" asp-action="Edit" asp-route-id="@x.OpportunityID">Edit</a> 
+            | 
+            <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.OpportunityID">Delete</button></td>
         </tr>
         }
     </table>
