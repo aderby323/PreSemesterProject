@@ -1,0 +1,52 @@
+﻿@model List<PreSemesterProject.Models.Opportunity>
+
+<div class="container">
+    <h2>Opportunities</h2>
+</div>
+
+<section class="container">
+    <div class="nav-options-container">
+        <div class="dropdown">
+            <div class="nav-opportunity-option dropdown-toggle" id="opportunityFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Change Opportunity Filter
+            </div>
+            <div class="dropdown-menu" aria-labelledby="opportunityFilter">
+                <a asp-action="Index" asp-route-filter="recent" class="dropdown-item">Most Recent (60 days)</a>
+                <a asp-action="Index" asp-route-filter="location" class="dropdown-item">By Center</a>
+            </div>
+        </div>
+        <div class="nav-opportunity-option">
+            Search Opportunity
+        </div>
+        <div class="nav-opportunity-option">
+            View Volunteer Opportunity
+        </div>
+        <div class="nav-opportunity-option" style="margin-left: auto">
+            Add New Opportunity
+        </div>
+    </div>
+    <table class="opportunities-table">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Options</th>
+        </tr>
+        @foreach(var x in Model)
+        {
+        <tr>
+            <td>@x.Title</td>
+            <td>@x.Description</td>
+            <td>@x.Location</td>
+            <td>@x.ModifiedOn</td>
+            <td>
+                <div class="opportunity-options">
+                    <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.OpportunityID">Edit</button>
+                    <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.OpportunityID">Delete</button>
+                </div>
+            </td>
+        </tr>
+        }
+    </table>
+</section>

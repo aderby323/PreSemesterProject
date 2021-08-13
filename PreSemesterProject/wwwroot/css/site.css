@@ -81,3 +81,56 @@ body {
 .action-box:hover {
     background-color: #eee;
 }
+
+.nav-options-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-opportunity-option {
+    border: 1px #6495ed solid;
+    font-size: 14px;
+    background-color: transparent;
+    color: #6495ed;
+    margin-left: 5px;
+    padding: 5px 10px;
+}
+
+.nav-opportunity-option:nth-child(1) {
+    margin-left: 0;
+}
+
+.nav-opportunity-option:hover {
+    background-color: #6495ed;
+    color: white;
+    cursor: pointer;
+}
+
+.opportunities-table {
+    font-family: Helvetica, Arial, sans-serif;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.opportunities-table td, .opportunities-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.opportunities-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+
+}
+
+.opportunities-table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #6a64ed;
+        color: white;
+}
+
+.opportunity-options {
+    display: flex;
+    gap: 5px;
+}
