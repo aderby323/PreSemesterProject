@@ -40,9 +40,28 @@ namespace PreSemesterProject.Controllers
             });
         }
         
-        public IActionResult Index()
+        public IActionResult Index([FromQuery] string filter)
         {
-            return View(_opportunities);
+            IEnumerable<Opportunity> opportunities;
+            if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }           
+
+            switch(filter)
+            {
+                case "recent":
+                    Console.WriteLine("Showing recent opportunities");
+                    opportunities = _opportunities.Where(x => x.ModifiedOn > DateTime.UtcNow.AddDays(-60)).OrderBy(x => x.ModifiedOn);
+                    break;
+                case "location":
+                    Console.WriteLine("Showing opportunities by location");
+                    opportunities = _opportunities.OrderBy(x => x.Location);
+                    break;
+                default:
+                    Console.WriteLine("Showing opportunities");
+                    opportunities = _opportunities.OrderBy(x => x.OpportunityID);
+                    break;
+            }
+
+            return View(opportunities.ToList());
         }
 
         [HttpGet]

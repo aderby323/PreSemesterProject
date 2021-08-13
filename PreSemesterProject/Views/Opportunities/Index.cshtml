@@ -1,38 +1,27 @@
 ﻿@model List<PreSemesterProject.Models.Opportunity>
-@functions{
-    public List<PreSemesterProject.Models.Opportunity> filterByRecent()
-    {
-        return Model;
-    }
-
-    public List<PreSemesterProject.Models.Opportunity> filterByLocation()
-    {
-        return Model.OrderBy(x => x.Location).ToList();
-    }
-}
 
 <div class="container">
     <h2>Opportunities</h2>
 </div>
 
-<div class="container">
-    <div class="options-container">
+<section class="container">
+    <div class="nav-options-container">
         <div class="dropdown">
-            <div class="opportunity-option dropdown-toggle" id="opportunityFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="nav-opportunity-option dropdown-toggle" id="opportunityFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Change Opportunity Filter
             </div>
             <div class="dropdown-menu" aria-labelledby="opportunityFilter">
-                <a class="dropdown-item" href="#">Most Recent (60 days)</a>
-                <a class="dropdown-item" onclick="@filterByLocation();">By Center</a>
+                <a asp-action="Index" asp-route-filter="recent" class="dropdown-item">Most Recent (60 days)</a>
+                <a asp-action="Index" asp-route-filter="location" class="dropdown-item">By Center</a>
             </div>
         </div>
-        <div class="opportunity-option">
+        <div class="nav-opportunity-option">
             Search Opportunity
         </div>
-        <div class="opportunity-option">
+        <div class="nav-opportunity-option">
             View Volunteer Opportunity
         </div>
-        <div class="opportunity-option" style="margin-left: auto">
+        <div class="nav-opportunity-option" style="margin-left: auto">
             Add New Opportunity
         </div>
     </div>
@@ -51,10 +40,13 @@
             <td>@x.Description</td>
             <td>@x.Location</td>
             <td>@x.ModifiedOn</td>
-            <td><a type="button" class="btn btn-outline-info" asp-action="Edit" asp-route-id="@x.OpportunityID">Edit</a> 
-            | 
-            <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.OpportunityID">Delete</button></td>
+            <td>
+                <div class="opportunity-options">
+                    <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.OpportunityID">Edit</button>
+                    <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.OpportunityID">Delete</button>
+                </div>
+            </td>
         </tr>
         }
     </table>
-</div>
+</section>

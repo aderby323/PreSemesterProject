@@ -82,12 +82,12 @@ body {
     background-color: #eee;
 }
 
-.options-container {
+.nav-options-container {
     display: flex;
     justify-content: flex-start;
 }
 
-.opportunity-option {
+.nav-opportunity-option {
     border: 1px #6495ed solid;
     font-size: 14px;
     background-color: transparent;
@@ -96,11 +96,11 @@ body {
     padding: 5px 10px;
 }
 
-.opportunity-option:nth-child(1) {
+.nav-opportunity-option:nth-child(1) {
     margin-left: 0;
 }
 
-.opportunity-option:hover {
+.nav-opportunity-option:hover {
     background-color: #6495ed;
     color: white;
     cursor: pointer;
@@ -122,10 +122,15 @@ body {
 
 }
 
-    .opportunities-table th {
+.opportunities-table th {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
         background-color: #6a64ed;
         color: white;
-    }
+}
+
+.opportunity-options {
+    display: flex;
+    gap: 5px;
+}
