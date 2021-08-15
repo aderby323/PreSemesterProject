@@ -53,12 +53,6 @@ namespace PreSemesterProject.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult Admin()
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
