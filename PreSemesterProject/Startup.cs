@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PreSemesterProject.Repository;
 using PreSemesterProject.Services;
 using PreSemesterProject.Services.Interfaces;
 using System;
@@ -26,7 +27,10 @@ namespace PreSemesterProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddTransient<IAuthService, AuthService>();
+            services.AddSingleton<FakeRepository>();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdminRole",
