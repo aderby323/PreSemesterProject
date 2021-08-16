@@ -26,6 +26,7 @@ namespace PreSemesterProject.Models
         public bool DriversLicenseOnFile { get; set; }
         public bool SSCardOnFile { get; set; }
         public ApprovalStatus VolunteerApprovalStatus { get; set; }
+        public bool Inactive { get; set; }
 
     }
 }

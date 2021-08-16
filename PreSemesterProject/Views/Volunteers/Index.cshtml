@@ -14,8 +14,11 @@
 
                 <!-- change these to correspond to volunteer filters -->
                 <a asp-action="Index" class="dropdown-item">None</a>
-                <a asp-action="Index" asp-route-filter="recent" class="dropdown-item">Most Recent (60 days)</a>
-                <a asp-action="Index" asp-route-filter="location" class="dropdown-item">By Center</a>
+                <a asp-action="Index" asp-route-filter="Approved / Pending Approval" class="dropdown-item">Approved / Pending Approval</a>
+                <a asp-action="Index" asp-route-filter="Approved" class="dropdown-item">Approved</a>
+                <a asp-action="Index" asp-route-filter="Pending" class="dropdown-item">Pending Approval</a>
+                <a asp-action="Index" asp-route-filter="Disapproved" class="dropdown-item">Disapproved</a>
+                <a asp-action="Index" asp-route-filter="Inactive" class="dropdown-item">Inactive</a>
             </div>
         </div>
         <div class="nav-opportunity-option">
@@ -53,6 +56,7 @@
                 <td>@x.SkillsAndInterests</td>
                 <td>@x.Availability</td>
                 <td>@x.VolunteerApprovalStatus</td>
+                <td>@x.Inactive</td>
                 <td>
                 <div class="opportunity-options">
                     <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>

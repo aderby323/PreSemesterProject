@@ -37,7 +37,7 @@ namespace PreSemesterProject.Repository
                 ModifiedOn = new DateTime(2020, 1, 4)
             });
 
-
+            
             Volunteers = new List<Volunteer>();
             Volunteers.Add(new Volunteer()
             {
@@ -45,14 +45,45 @@ namespace PreSemesterProject.Repository
                 FirstName = "Bob",
                 LastName = "Ross",
 
+
                 // how can we add a list?
-                PreferredCenters = { "Avenues", "UNF" },
+                // GET HELP FROM ALEX
+                // PreferredCenters = { "Avenues", "UNF" } ,
 
                 SkillsAndInterests = "Painting",
                 Availability = "Open",
                 VolunteerApprovalStatus = ApprovalStatus.Approved
 
             });
+            Volunteers.Add(new Volunteer()
+            {
+                Username = "ronmcdon65",
+                FirstName = "Ronald",
+                LastName = "McDonald",
+
+                // how can we add a list?
+                // PreferredCenters = { "Avenues" },
+
+                SkillsAndInterests = "Cooking",
+                Availability = "Open",
+                VolunteerApprovalStatus = ApprovalStatus.Approved
+
+            });
+            Volunteers.Add(new Volunteer()
+            {
+                Username = "wheresmahat78",
+                FirstName = "Mahatma",
+                LastName = "Gandhi",
+
+                // how can we add a list?
+                // PreferredCenters = { "Southside" },
+
+                SkillsAndInterests = "Counselling",
+                Availability = "Open",
+                VolunteerApprovalStatus = ApprovalStatus.Approved
+
+            });
+            
         }
     }
 }
