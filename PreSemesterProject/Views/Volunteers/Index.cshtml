@@ -7,10 +7,12 @@
 <section class="container">
     <div class="nav-options-container">
         <div class="dropdown">
-            <div class="nav-opportunity-option dropdown-toggle" id="opportunityFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-filter"></i> Change Opportunity Filter
+            <div class="nav-opportunity-option dropdown-toggle" id="volunteerFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-filter"></i> Change Volunteer Filter
             </div>
-            <div class="dropdown-menu" aria-labelledby="opportunityFilter">
+            <div class="dropdown-menu" aria-labelledby="volunteerFilter">
+
+                <!-- change these to correspond to volunteer filters -->
                 <a asp-action="Index" class="dropdown-item">None</a>
                 <a asp-action="Index" asp-route-filter="recent" class="dropdown-item">Most Recent (60 days)</a>
                 <a asp-action="Index" asp-route-filter="location" class="dropdown-item">By Center</a>
@@ -20,42 +22,47 @@
             View Volunteer Opportunity
         </div>
         <div class="nav-opportunity-option" style="margin-left: auto">
-            <i class="fas fa-plus"></i> Add New Opportunity
+            <i class="fas fa-plus"></i> Add New Volunteer
         </div>
     </div>
     <form asp-action="Index" method="get">
         <div class="input-group mb-0">
-            <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentSearch"]" placeholder="Search Opportunities">
+            <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentSearch"]" placeholder="Search Volunteers">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
             </div>
         </div>
     </form>
-    <table class="opportunities-table">
+    <table class="volunteers-table">
         <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Date</th>
-            <th>Options</th>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Preferred Centers</th>
+            <th>Skills / Interests</th>
+            <th>Availability</th>
+            <th>Approval Status</th>
         </tr>
         @foreach (var x in Model)
         {
-            <tr>
-                <td>@x.Title</td>
-                <td>@x.Description</td>
-                <td>@x.Location</td>
-                <td>@x.ModifiedOn</td>
+             <tr>
+                <td>@x.Username</td>
+                <td>@x.FirstName</td>
+                <td>@x.LastName</td>
+                <td>@x.PreferredCenters</td>
+                <td>@x.SkillsAndInterests</td>
+                <td>@x.Availability</td>
+                <td>@x.VolunteerApprovalStatus</td>
                 <td>
-                    <div class="opportunity-options">
-                        <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.OpportunityID">Edit</button>
-                        <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.OpportunityID">Delete</button>
-                    </div>
+                <div class="opportunity-options">
+                    <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
+                    <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
+                </div>
                 </td>
             </tr>
         }
     </table>
 </section>
 <form asp-action="Add" method="post">
-    <button type="submit">Add Opportunity</button>
+    <button type="submit">Add Volunteer</button>
 </form>

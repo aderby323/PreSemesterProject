@@ -36,7 +36,23 @@ namespace PreSemesterProject.Repository
                 Location = "Southside",
                 ModifiedOn = new DateTime(2020, 1, 4)
             });
+
+
             Volunteers = new List<Volunteer>();
+            Volunteers.Add(new Volunteer()
+            {
+                Username = "bross33",
+                FirstName = "Bob",
+                LastName = "Ross",
+
+                // how can we add a list?
+                PreferredCenters = { "Avenues", "UNF" },
+
+                SkillsAndInterests = "Painting",
+                Availability = "Open",
+                VolunteerApprovalStatus = ApprovalStatus.Approved
+
+            });
         }
     }
 }
