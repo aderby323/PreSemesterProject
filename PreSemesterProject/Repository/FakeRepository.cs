@@ -36,7 +36,54 @@ namespace PreSemesterProject.Repository
                 Location = "Southside",
                 ModifiedOn = new DateTime(2020, 1, 4)
             });
+
+            
             Volunteers = new List<Volunteer>();
+            Volunteers.Add(new Volunteer()
+            {
+                Username = "bross33",
+                FirstName = "Bob",
+                LastName = "Ross",
+
+
+                // how can we add a list?
+                // GET HELP FROM ALEX
+                 PreferredCenters = "Avenues",
+
+                SkillsAndInterests = "Painting",
+                Availability = "Open",
+                VolunteerApprovalStatus = ApprovalStatus.Pending
+
+            });
+            Volunteers.Add(new Volunteer()
+            {
+                Username = "ronmcdon65",
+                FirstName = "Ronald",
+                LastName = "McDonald",
+
+                // how can we add a list?
+                PreferredCenters = "UNF",
+
+                SkillsAndInterests = "Cooking",
+                Availability = "Mon - Fri 8:00am to 5:00pm",
+                VolunteerApprovalStatus = ApprovalStatus.Approved
+
+            });
+            Volunteers.Add(new Volunteer()
+            {
+                Username = "wheresmahat78",
+                FirstName = "Mahatma",
+                LastName = "Gandhi",
+
+                // how can we add a list?
+                PreferredCenters = "Southside",
+
+                SkillsAndInterests = "Counselling",
+                Availability = "Open",
+                VolunteerApprovalStatus = ApprovalStatus.Denied
+
+            });
+            
         }
     }
 }
