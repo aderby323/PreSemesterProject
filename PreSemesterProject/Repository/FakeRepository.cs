@@ -48,11 +48,11 @@ namespace PreSemesterProject.Repository
 
                 // how can we add a list?
                 // GET HELP FROM ALEX
-                // PreferredCenters = { "Avenues", "UNF" } ,
+                 PreferredCenters = "Avenues",
 
                 SkillsAndInterests = "Painting",
                 Availability = "Open",
-                VolunteerApprovalStatus = ApprovalStatus.Approved
+                VolunteerApprovalStatus = ApprovalStatus.Pending
 
             });
             Volunteers.Add(new Volunteer()
@@ -62,10 +62,10 @@ namespace PreSemesterProject.Repository
                 LastName = "McDonald",
 
                 // how can we add a list?
-                // PreferredCenters = { "Avenues" },
+                PreferredCenters = "UNF",
 
                 SkillsAndInterests = "Cooking",
-                Availability = "Open",
+                Availability = "Mon - Fri 8:00am to 5:00pm",
                 VolunteerApprovalStatus = ApprovalStatus.Approved
 
             });
@@ -76,11 +76,11 @@ namespace PreSemesterProject.Repository
                 LastName = "Gandhi",
 
                 // how can we add a list?
-                // PreferredCenters = { "Southside" },
+                PreferredCenters = "Southside",
 
                 SkillsAndInterests = "Counselling",
                 Availability = "Open",
-                VolunteerApprovalStatus = ApprovalStatus.Approved
+                VolunteerApprovalStatus = ApprovalStatus.Denied
 
             });
             
