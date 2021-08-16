@@ -10,7 +10,7 @@ namespace PreSemesterProject.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
-        public List<string> PreferredCenters { get; set; }
+        public string PreferredCenters { get; set; }
         public string SkillsAndInterests { get; set; }
         public string Availability { get; set; }
         public string Address { get; set; }
@@ -26,6 +26,7 @@ namespace PreSemesterProject.Models
         public bool DriversLicenseOnFile { get; set; }
         public bool SSCardOnFile { get; set; }
         public ApprovalStatus VolunteerApprovalStatus { get; set; }
+        public bool Inactive { get; set; }
 
     }
 }
