@@ -7,12 +7,10 @@
 <section class="container">
     <div class="nav-options-container">
         <div class="dropdown">
-            <div class="nav-opportunity-option dropdown-toggle" id="volunteerFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="nav-volunteer-option dropdown-toggle" id="volunteerFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-filter"></i> Change Volunteer Filter
             </div>
             <div class="dropdown-menu" aria-labelledby="volunteerFilter">
-
-                <!-- change these to correspond to volunteer filters -->
                 <a asp-action="Index" class="dropdown-item">None</a>
                 <a asp-action="Index" asp-route-filter="Approved / Pending Approval" class="dropdown-item">Approved / Pending Approval</a>
                 <a asp-action="Index" asp-route-filter="Approved" class="dropdown-item">Approved</a>
@@ -21,10 +19,10 @@
                 <a asp-action="Index" asp-route-filter="Inactive" class="dropdown-item">Inactive</a>
             </div>
         </div>
-        <div class="nav-opportunity-option">
+        <div class="nav-volunteer-option">
             View Volunteer Opportunity
         </div>
-        <div class="nav-opportunity-option" style="margin-left: auto">
+        <div class="nav-volunteer-option" style="margin-left: auto">
             <i class="fas fa-plus"></i> Add New Volunteer
         </div>
     </div>
@@ -58,7 +56,7 @@
                 <td>@x.VolunteerApprovalStatus</td>
                 <td>@x.Inactive</td>
                 <td>
-                <div class="opportunity-options">
+                <div class="volunteer-options">
                     <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
                     <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
                 </div>

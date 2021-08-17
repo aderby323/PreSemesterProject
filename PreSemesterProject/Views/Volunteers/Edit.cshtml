@@ -1,0 +1,11 @@
+﻿@model PreSemesterProject.Models.Volunteer
+
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">Edit Volunteer: @Model.Username</div>
+<div class="container">
+    <form asp-action="Edit" method="post">
+    </form>
+</div>
