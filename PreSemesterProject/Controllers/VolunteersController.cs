@@ -70,7 +70,7 @@ namespace PreSemesterProject.Controllers
         {
             Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.VolunteerID == username).FirstOrDefault();
 
-            if (volunteer is null) { return NotFound($"Voltuneer with username: {username} not found."); }
+            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
 
             return View(volunteer);
         }
@@ -89,24 +89,10 @@ namespace PreSemesterProject.Controllers
             return Ok(username);
         }
 
-        [HttpPost]
-        public IActionResult Add()
+        
+        public IActionResult Create()
         {
-            _fakeRepository.Volunteers.Add(new Volunteer
-            {
-                Username = "newperson99",
-                FirstName = "New",
-                LastName = "Person",
-
-                // how can we add a list?
-                // GET HELP FROM ALEX
-                // PreferredCenters = { "Avenues" },
-
-                SkillsAndInterests = "Cooking",
-                Availability = "Open",
-                VolunteerApprovalStatus = ApprovalStatus.Approved
-            });
-            return RedirectToAction("Index");
+            return View("~/Views/Volunteers/Create.cshtml");
         }
 
 

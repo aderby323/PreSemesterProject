@@ -25,6 +25,8 @@
         <div class="nav-volunteer-option" style="margin-left: auto">
             <i class="fas fa-plus"></i> Add New Volunteer
         </div>
+        @Html.ActionLink("Add New Volunteer", "Create", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
+
     </div>
     <form asp-action="Index" method="get">
         <div class="input-group mb-0">
@@ -47,7 +49,7 @@
         </tr>
         @foreach (var x in Model)
         {
-             <tr>
+            <tr>
                 <td>@x.Username</td>
                 <td>@x.FirstName</td>
                 <td>@x.LastName</td>
@@ -57,15 +59,14 @@
                 <td>@x.VolunteerApprovalStatus</td>
                 <td>@x.Inactive</td>
                 <td>
-                <div class="volunteer-options">
-                    <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
-                    <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
-                </div>
+                    <div class="volunteer-options">
+                        <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
+                        <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
+                    </div>
                 </td>
             </tr>
         }
     </table>
 </section>
-<form asp-action="Add" method="post">
-    <button type="submit">Add Volunteer</button>
-</form>
+
+
