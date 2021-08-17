@@ -4,8 +4,102 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">Create Volunteer</div>
+<h2>Create Volunteer</h2>
+
+<div class="container"></div>
 <div class="container">
     <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label">Username</label>
+            <input asp-for="Username" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="FirstName" class="form-label">First Name</label>
+            <input asp-for="FirstName" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label">Last Name</label>
+            <input asp-for="LastName" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input asp-for="Password" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="PreferredCenters" class="form-label">Peferred Centers (Choose one: UNF, Avenues, or Southside)</label>
+            <input asp-for="PreferredCenters" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="SkillsAndInterests" class="form-label">Skills and Interests</label>
+            <input asp-for="SkillsAndInterests" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Availability" class="form-label">Availability (Use format: Day - Day 00:00pm to 00:00pm)</label>
+            <input asp-for="Availability" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label">Address</label>
+            <input asp-for="Address" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="HomePhone" class="form-label">Home Phone (Use format: xxx-xxx-xxxx)</label>
+            <input asp-for="HomePhone" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="WorkPhone" class="form-label">Work Phone (Use format: xxx-xxx-xxxx)</label>
+            <input asp-for="WorkPhone" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="CellPhone" class="form-label">Cell Phone (Use format: xxx-xxx-xxxx)</label>
+            <input asp-for="CellPhone" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="EmailAddress" class="form-label">Email Address</label>
+            <input asp-for="EmailAddress" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="EducationalBackground" class="form-label">Educational Background</label>
+            <input asp-for="EducationalBackground" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="CurrentLicenses" class="form-label">Current Professional Licenses</label>
+            <input asp-for="CurrentLicenses" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="EmergencyContactName" class="form-label">Emergency Contact Name</label>
+            <input asp-for="EmergencyContactName" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="EmergencyPhone" class="form-label">Emergency Contact Phone (Use format: xxx-xxx-xxxx)</label>
+            <input asp-for="EmergencyPhone" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="EmergencyEmailAddress" class="form-label">Emergency Contact Email Address</label>
+            <input asp-for="EmergencyEmailAddress" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="DriversLicenseOnFile" class="form-label">Driver's License on File?</label>
+            <input asp-for="DriversLicenseOnFile" type="checkbox" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="SSCardOnFile" class="form-label">Social Security Card on File?</label>
+            <input asp-for="SSCardOnFile" type="checkbox" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Inactive" class="form-label">Inactive?</label>
+            <input asp-for="Inactive" type="checkbox" class="form-control">
+        </div>
+
+        <!-- FIGURE OUT HOW TO IMPLEMENT THIS ONE, ASK ALEX?-->
+        <div class="mb-3">
+            <label asp-for="VolunteerApprovalStatus" class="form-label">Approval Status (NEED TO FIGURE OUT HOW TO IMPLEMENT THIS)</label>
+            <input asp-for="VolunteerApprovalStatus" type="text" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
     </form>
 </div>
+
+
+
