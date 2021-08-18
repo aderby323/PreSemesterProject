@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,9 +8,7 @@ using PreSemesterProject.Repository;
 using PreSemesterProject.Services;
 using PreSemesterProject.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace PreSemesterProject
 {
@@ -31,11 +29,18 @@ namespace PreSemesterProject
             services.AddTransient<IAuthService, AuthService>();
             services.AddSingleton<FakeRepository>();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => 
+                {
+                    options.LoginPath = "/Home/Login";
+                    options.Cookie.Name = "LoginCookie";
+                });
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireAdminRole",
-                    policy => policy.RequireRole("Admin"));
+                options.AddPolicy("Admin",
+                    policy => policy.RequireClaim(ClaimTypes.Role,"Admin"));
             });
+
             services.AddSession(options =>
             {
                 options.Cookie.Name = "VMS.Session";

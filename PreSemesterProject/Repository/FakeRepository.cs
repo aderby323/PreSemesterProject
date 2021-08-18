@@ -8,9 +8,17 @@ namespace PreSemesterProject.Repository
     {
         public List<Opportunity> Opportunities;
         public List<Volunteer> Volunteers;
+        public List<User> Users;
 
         public FakeRepository()
         {
+            Users = new List<User>();
+            Users.Add(new User()
+            {
+                Username = "aderby",
+                Password = "test",
+                Roles = { "Admin" }
+            });
             Opportunities = new List<Opportunity>();
             Opportunities.Add(new Opportunity()
             {

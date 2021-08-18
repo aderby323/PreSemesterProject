@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PreSemesterProject.Models;
 using PreSemesterProject.Repository;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace PreSemesterProject.Controllers
 {
+    [Authorize("Admin")]
     public class OpportunitiesController : Controller
     {
 
@@ -22,7 +24,6 @@ namespace PreSemesterProject.Controllers
         {
             ViewData["CurrentSearch"] = searchString;
             IEnumerable<Opportunity> opportunities = _fakeRepository.Opportunities;
-            //IEnumerable<Opportunity> opportunities = _opportunities;
 
             if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }
 
