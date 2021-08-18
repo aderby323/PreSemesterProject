@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PreSemesterProject.Models;
 using PreSemesterProject.Repository;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace PreSemesterProject.Controllers
 {
+    [Authorize("Admin")]
     public class VolunteersController : Controller
     {
         //private List<Opportunity> _volunteers = new List<Opportunity>();
