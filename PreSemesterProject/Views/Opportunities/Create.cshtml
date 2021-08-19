@@ -1,0 +1,27 @@
+﻿@model PreSemesterProject.Models.Opportunity
+
+<div class="container">Add a New Opportunity</div>
+<div class="container">
+    <form asp-action="Create" method="post">
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="Title" class="form-label">Title</label>
+                <input asp-for="Title" type="text" class="form-control">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label asp-for="Location" class="form-label">Location</label>
+                <input asp-for="Location" class="form-control">
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label asp-for="Description" class="form-label">Descripion</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="submit" asp-action="Create" class="btn btn-outline-primary">Create Opportunity</button>
+    </form>
+</div>
