@@ -12,70 +12,124 @@
         <div class="mb-3">
             <label asp-for="Username" class="form-label">Username</label>
             <input asp-for="Username" type="text" class="form-control">
+            <span asp-validation-for="Username" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="FirstName" class="form-label">First Name</label>
             <input asp-for="FirstName" type="text" class="form-control">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="LastName" class="form-label">Last Name</label>
             <input asp-for="LastName" type="text" class="form-control">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="Password" class="form-label">Password</label>
             <input asp-for="Password" type="text" class="form-control">
+            <span asp-validation-for="Password" class="text-danger"></span>
+
         </div>
+
+        <!--
+    <div class="mb-3">
+        <label asp-for="PreferredCenters" class="form-label">Peferred Centers (Choose one: UNF, Avenues, or Southside)</label>
+        <input asp-for="PreferredCenters" type="text" class="form-control">
+        <span asp-validation-for="PreferredCenters" class="text-danger"></span>
+
+    </div>
+    -->
+
+        <!-- THIS IS A TEST -->
         <div class="mb-3">
-            <label asp-for="PreferredCenters" class="form-label">Peferred Centers (Choose one: UNF, Avenues, or Southside)</label>
-            <input asp-for="PreferredCenters" type="text" class="form-control">
+            <p>Choose your preferred work center: </p>
+            <input asp-for="PreferredCenters" type="radio" id="UNF" name="preferred_center" value="UNF" class="form-control">
+            <label asp-for="PreferredCenters" for="UNF" class="form-label">UNF</label><br />
+
+            <input asp-for="PreferredCenters" type="radio" id="Avenues" name="preferred_center" value="Avenues" class="form-control">
+            <label asp-for="PreferredCenters" for="Avenues" class="form-label">Avenues</label><br />
+
+            <input asp-for="PreferredCenters" type="radio" id="Southside" name="preferred_center" value="Southside" class="form-control">
+            <label asp-for="PreferredCenters" for="Southside" class="form-label">Southside</label><br />
+           
+            <span asp-validation-for="PreferredCenters" class="text-danger"></span>
+
         </div>
+
+
         <div class="mb-3">
             <label asp-for="SkillsAndInterests" class="form-label">Skills and Interests</label>
             <input asp-for="SkillsAndInterests" type="text" class="form-control">
+            <span asp-validation-for="SkillsAndInterests" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="Availability" class="form-label">Availability (Use format: Day - Day 00:00pm to 00:00pm)</label>
             <input asp-for="Availability" type="text" class="form-control">
+            <span asp-validation-for="Availability" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="Address" class="form-label">Address</label>
             <input asp-for="Address" type="text" class="form-control">
+            <span asp-validation-for="Address" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="HomePhone" class="form-label">Home Phone (Use format: xxx-xxx-xxxx)</label>
             <input asp-for="HomePhone" type="text" class="form-control">
+            <span asp-validation-for="HomePhone" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="WorkPhone" class="form-label">Work Phone (Use format: xxx-xxx-xxxx)</label>
             <input asp-for="WorkPhone" type="text" class="form-control">
+            <span asp-validation-for="WorkPhone" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="CellPhone" class="form-label">Cell Phone (Use format: xxx-xxx-xxxx)</label>
             <input asp-for="CellPhone" type="text" class="form-control">
+            <span asp-validation-for="CellPhone" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="EmailAddress" class="form-label">Email Address</label>
             <input asp-for="EmailAddress" type="text" class="form-control">
+            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="EducationalBackground" class="form-label">Educational Background</label>
             <input asp-for="EducationalBackground" type="text" class="form-control">
+            <span asp-validation-for="EducationalBackground" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="CurrentLicenses" class="form-label">Current Professional Licenses</label>
             <input asp-for="CurrentLicenses" type="text" class="form-control">
+            <span asp-validation-for="CurrentLicenses" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="EmergencyContactName" class="form-label">Emergency Contact Name</label>
             <input asp-for="EmergencyContactName" type="text" class="form-control">
+            <span asp-validation-for="EmergencyContactName" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="EmergencyPhone" class="form-label">Emergency Contact Phone (Use format: xxx-xxx-xxxx)</label>
             <input asp-for="EmergencyPhone" type="text" class="form-control">
+            <span asp-validation-for="EmergencyPhone" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="EmergencyEmailAddress" class="form-label">Emergency Contact Email Address</label>
             <input asp-for="EmergencyEmailAddress" type="text" class="form-control">
+            <span asp-validation-for="EmergencyEmailAddress" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label asp-for="DriversLicenseOnFile" class="form-label">Driver's License on File?</label>
@@ -90,7 +144,7 @@
             <input asp-for="Inactive" type="checkbox" class="form-control">
         </div>
 
-        <!-- FIGURE OUT HOW TO IMPLEMENT THIS ONE, ASK ALEX?-->
+
         <div class="mb-3">
             <label asp-for="VolunteerApprovalStatus" class="form-label">Approval Status</label>
             <select asp-for="VolunteerApprovalStatus" asp-items="Html.GetEnumSelectList<ApprovalStatus>()" class="form-control">
@@ -104,6 +158,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
+
+        
 
     </form>
 </div>
