@@ -33,19 +33,17 @@ namespace PreSemesterProject.Controllers
         
         public IActionResult Login()
         {
-            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("SessionKeyAdmin")))
-            {
-                return RedirectToAction("Index");
-            }
             return View();
         }
 
         [HttpPost]
         public IActionResult Login(LoginViewModel login)
         {
+            ViewData["ErrorMessage"] = null;
             User user = _authService.ValidateLogin(login);
             if (user is null)
             {
+                ViewData["ErrorMessage"] = "Username or password is incorrect.";
                 return View();
             }
 
