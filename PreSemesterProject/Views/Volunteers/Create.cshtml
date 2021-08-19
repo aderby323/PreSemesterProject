@@ -92,8 +92,15 @@
 
         <!-- FIGURE OUT HOW TO IMPLEMENT THIS ONE, ASK ALEX?-->
         <div class="mb-3">
-            <label asp-for="VolunteerApprovalStatus" class="form-label">Approval Status (NEED TO FIGURE OUT HOW TO IMPLEMENT THIS)</label>
-            <input asp-for="VolunteerApprovalStatus" type="text" class="form-control">
+            <label asp-for="VolunteerApprovalStatus" class="form-label">Approval Status</label>
+            <select asp-for="VolunteerApprovalStatus" asp-items="Html.GetEnumSelectList<ApprovalStatus>()" class="form-control">
+                <option>Select approval status... </option>
+            </select>
+
+
+
+
+            <!-- <input asp-for="VolunteerApprovalStatus" type="text" class="form-control"> -->
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
