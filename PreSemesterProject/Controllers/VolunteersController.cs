@@ -91,16 +91,36 @@ namespace PreSemesterProject.Controllers
             return Ok(username);
         }
 
-        
+        /*
         public IActionResult Create()
         {
             return View("~/Views/Volunteers/Create.cshtml");
+        }
+        */
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Volunteer volunteer)
+        {
+            if (!ModelState.IsValid) { return View(); }
+
+            
+
+            volunteer.VolunteerID = Guid.NewGuid().ToString();
+
+            _fakeRepository.Volunteers.Add(volunteer);
+
+            return RedirectToAction("Index");
         }
 
 
 
 
-       
 
 
 

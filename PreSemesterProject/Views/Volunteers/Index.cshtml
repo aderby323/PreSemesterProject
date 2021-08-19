@@ -5,6 +5,14 @@
 </div>
 
 <section class="container">
+
+    @if (Model.Count <= 0)
+    {
+        <div class="alert alert-info" role="alert">
+            No volunteers found.
+        </div>
+    }
+
     <div class="nav-options-container">
         <div class="dropdown">
             <div class="nav-volunteer-option dropdown-toggle" id="volunteerFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,8 +31,12 @@
             View Volunteer Opportunity
         </div>
         <div class="nav-volunteer-option" style="margin-left: auto">
-            <i class="fas fa-plus"></i> Add New Volunteer
+            <a asp-action="Create"><i class="fas fa-plus"></i> Add New Volunteer</a>
+
+            <!-- <i class="fas fa-plus"></i> Add New Volunteer -->
         </div>
+
+        <!-- TEMPORARY SOLUTION I'M USING -->
         @Html.ActionLink("Add New Volunteer", "Create", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
 
     </div>
@@ -36,37 +48,42 @@
             </div>
         </div>
     </form>
-    <table class="volunteers-table">
-        <tr>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Preferred Centers</th>
-            <th>Skills / Interests</th>
-            <th>Availability</th>
-            <th>Approval Status</th>
-            <th>Inactive</th>
-        </tr>
-        @foreach (var x in Model)
-        {
+
+    @if (Model.Count > 0)
+    {
+        <table class="volunteers-table">
             <tr>
-                <td>@x.Username</td>
-                <td>@x.FirstName</td>
-                <td>@x.LastName</td>
-                <td>@x.PreferredCenters</td>
-                <td>@x.SkillsAndInterests</td>
-                <td>@x.Availability</td>
-                <td>@x.VolunteerApprovalStatus</td>
-                <td>@x.Inactive</td>
-                <td>
-                    <div class="volunteer-options">
-                        <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
-                        <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
-                    </div>
-                </td>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Preferred Centers</th>
+                <th>Skills / Interests</th>
+                <th>Availability</th>
+                <th>Approval Status</th>
+                <th>Inactive</th>
             </tr>
-        }
-    </table>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.Username</td>
+                    <td>@x.FirstName</td>
+                    <td>@x.LastName</td>
+                    <td>@x.PreferredCenters</td>
+                    <td>@x.SkillsAndInterests</td>
+                    <td>@x.Availability</td>
+                    <td>@x.VolunteerApprovalStatus</td>
+                    <td>@x.Inactive</td>
+                    <td>
+                        <div class="volunteer-options">
+                            <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
+                            <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
 </section>
 
 
