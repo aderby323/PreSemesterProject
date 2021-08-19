@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PreSemesterProject.Models;
 using PreSemesterProject.Repository;
 using System;
@@ -7,10 +8,10 @@ using System.Linq;
 
 namespace PreSemesterProject.Controllers
 {
+    [Authorize("Admin")]
     public class OpportunitiesController : Controller
     {
 
-        //private List<Opportunity> _opportunities = new List<Opportunity>();
         private FakeRepository _fakeRepository;
 
         public OpportunitiesController(FakeRepository fakeRepository)
@@ -22,7 +23,6 @@ namespace PreSemesterProject.Controllers
         {
             ViewData["CurrentSearch"] = searchString;
             IEnumerable<Opportunity> opportunities = _fakeRepository.Opportunities;
-            //IEnumerable<Opportunity> opportunities = _opportunities;
 
             if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }
 
@@ -53,40 +53,58 @@ namespace PreSemesterProject.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
+            ViewData["OpportunityID"] = null;
             Opportunity opportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == id).FirstOrDefault();
 
-            if(opportunity is null) { return NotFound($"Opportunity with ID: {id} not found."); }
+            if (opportunity is null) { return NotFound($"Opportunity with ID: {id} not found."); }
 
+            ViewData["OpportunityID"] = opportunity.OpportunityID;
             return View(opportunity);
         }
 
         [HttpPost]
         public IActionResult Edit(Opportunity opportunity)
         {
-            if (!ModelState.IsValid) { return BadRequest(); }
+            if (!ModelState.IsValid) { return View(); }
 
-            return Ok(opportunity);
+            opportunity.OpportunityID = ViewData["OpportunityID"].ToString();
+
+            int index = _fakeRepository.Opportunities.FindIndex(x => x.OpportunityID.Equals(opportunity.OpportunityID));
+            _fakeRepository.Opportunities[index] = opportunity;
+
+            ViewData["OpportunityID"] = null;
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public IActionResult Delete(string id)
         {
-            return Ok(id);
+            Opportunity opportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == id).FirstOrDefault();
+
+            if (opportunity is null) { return NotFound($"Opportunity with ID: {id} not found."); }
+
+            _fakeRepository.Opportunities.Remove(opportunity);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Add()
+        public IActionResult Create(Opportunity opportunity)
         {
-            _fakeRepository.Opportunities.Add(new Opportunity
-            {
-                OpportunityID = Guid.NewGuid().ToString(),
-                Title = "Test Opportunity",
-                Description = "random word here",
-                Location = "32256",
-                ModifiedOn = DateTime.UtcNow
-            });
+            if (!ModelState.IsValid) { return View(); }
+
+            opportunity.OpportunityID = Guid.NewGuid().ToString();
+            opportunity.ModifiedOn = DateTime.UtcNow;
+
+            _fakeRepository.Opportunities.Add(opportunity);
+
             return RedirectToAction("Index");
         }
     }
-
 }

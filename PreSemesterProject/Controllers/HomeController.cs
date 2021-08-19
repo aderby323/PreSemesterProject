@@ -6,6 +6,10 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using PreSemesterProject.Models.ViewModels;
 using PreSemesterProject.Services.Interfaces;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using PreSemesterProject.Repository;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PreSemesterProject.Controllers
 {
@@ -15,42 +19,44 @@ namespace PreSemesterProject.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IAuthService _authService;
 
-        public HomeController(ILogger<HomeController> logger, IAuthService authService)
+        public HomeController(ILogger<HomeController> logger, IAuthService authService, FakeRepository repository)
         {
             _logger = logger;
             _authService = authService;
         }
 
+        [Authorize("Admin")]
         public IActionResult Index()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("SessionKeyAdmin")))
-            {
-                return RedirectToAction("Login");
-            }
-
             return View();
         }
-
         
         public IActionResult Login()
         {
-            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("SessionKeyAdmin")))
-            {
-                return RedirectToAction("Index");
-            }
             return View();
         }
 
         [HttpPost]
         public IActionResult Login(LoginViewModel login)
         {
-            if (_authService.ValidateLogin(login))
+            ViewData["ErrorMessage"] = null;
+            User user = _authService.ValidateLogin(login);
+            if (user is null)
             {
-                HttpContext.Session.SetString("SessionKeyAdmin", login.Username);
-                return RedirectToAction("Index");
+                ViewData["ErrorMessage"] = "Username or password is incorrect.";
+                return View();
             }
 
-            return NotFound();
+            ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
+                foreach(string role in user.Roles)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, role));
+                }
+
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+            HttpContext.Session.SetString("SessionKey", login.Username);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

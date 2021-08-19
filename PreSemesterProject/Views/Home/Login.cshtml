@@ -2,6 +2,12 @@
 <h2>Login</h2>
 
 <div class="container">
+    @if (ViewData["ErrorMessage"] != null) 
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewData["ErrorMessage"].ToString()
+        </div>
+    }
     <form asp-action="Login" method="post">
         <div class="mb-3">
             <label asp-for="Username" class="form-label">Username</label>
