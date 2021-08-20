@@ -18,6 +18,8 @@ namespace PreSemesterProject.Models
         [Required]
         [ZipCode]
         public string Location { get; set; }
+
+        [Required]
         public DateTime Date { get; set; }
     }
 }

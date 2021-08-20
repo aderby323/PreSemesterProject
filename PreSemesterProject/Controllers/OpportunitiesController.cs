@@ -66,8 +66,6 @@ namespace PreSemesterProject.Controllers
         {
             if (!ModelState.IsValid) { return View(opportunity); }
 
-            opportunity.Date = DateTime.UtcNow;
-
             int index = _fakeRepository.Opportunities.FindIndex(x => x.OpportunityID.Equals(opportunity.OpportunityID));
             _fakeRepository.Opportunities[index] = opportunity;
 

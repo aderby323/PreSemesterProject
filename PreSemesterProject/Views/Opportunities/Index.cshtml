@@ -67,10 +67,7 @@
             <td>@x.Date</td>
             <td>
                 <div class="button-options">
-
-                    <button type="button" href="/Opportunities/Edit/@x.OpportunityID" class="btn btn-outline-danger">Edit</button>
-                    <a asp-action="Edit" asp-route-id="@x.OpportunityID"><span style="display: block">Edit</span></a>
-
+                    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@x.OpportunityID"><span style="display: block">Edit</span></a>
                     <div>
                         <button class="btn btn-outline-danger dropdown-toggle" id="deleteDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete</button>
                         <div class="dropdown-menu" aria-labelledby="deleteDrop">
