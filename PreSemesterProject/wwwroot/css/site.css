@@ -111,6 +111,8 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     border-collapse: collapse;
     margin-top: 20px;
+    width: 100%;
+    table-layout: fixed;
 }
 
 .opportunities-table td, .opportunities-table th {
@@ -131,7 +133,7 @@ body {
         color: white;
 }
 
-.opportunity-options {
+.button-options {
     display: flex;
     gap: 5px;
 }

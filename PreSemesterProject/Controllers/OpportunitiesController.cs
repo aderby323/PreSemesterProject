@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PreSemesterProject.Models;
+using PreSemesterProject.Models.ViewModels;
 using PreSemesterProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace PreSemesterProject.Controllers
             {
                 case "recent":
                     Console.WriteLine("Showing recent opportunities");
-                    opportunities = opportunities.Where(x => x.ModifiedOn > DateTime.UtcNow.AddDays(-60)).OrderBy(x => x.ModifiedOn);
+                    opportunities = opportunities.Where(x => x.Date > DateTime.UtcNow.AddDays(-60)).OrderBy(x => x.Date);
                     break;
                 case "location":
                     Console.WriteLine("Showing opportunities by location");
@@ -53,26 +54,23 @@ namespace PreSemesterProject.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            ViewData["OpportunityID"] = null;
             Opportunity opportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == id).FirstOrDefault();
 
             if (opportunity is null) { return NotFound($"Opportunity with ID: {id} not found."); }
 
-            ViewData["OpportunityID"] = opportunity.OpportunityID;
             return View(opportunity);
         }
 
         [HttpPost]
         public IActionResult Edit(Opportunity opportunity)
         {
-            if (!ModelState.IsValid) { return View(); }
+            if (!ModelState.IsValid) { return View(opportunity); }
 
-            opportunity.OpportunityID = ViewData["OpportunityID"].ToString();
+            opportunity.Date = DateTime.UtcNow;
 
             int index = _fakeRepository.Opportunities.FindIndex(x => x.OpportunityID.Equals(opportunity.OpportunityID));
             _fakeRepository.Opportunities[index] = opportunity;
 
-            ViewData["OpportunityID"] = null;
             return RedirectToAction("Index");
         }
 
@@ -100,7 +98,6 @@ namespace PreSemesterProject.Controllers
             if (!ModelState.IsValid) { return View(); }
 
             opportunity.OpportunityID = Guid.NewGuid().ToString();
-            opportunity.ModifiedOn = DateTime.UtcNow;
 
             _fakeRepository.Opportunities.Add(opportunity);
 
