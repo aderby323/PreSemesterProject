@@ -33,31 +33,42 @@
 
         </div>
 
-        
-    <div class="mb-3">
-        <label asp-for="PreferredCenters" class="form-label">Peferred Centers (Choose one: UNF, Avenues, or Southside)</label>
-        <input asp-for="PreferredCenters" type="text" class="form-control">
-        <span asp-validation-for="PreferredCenters" class="text-danger"></span>
 
-    </div>
-    
-
-        <!-- THIS IS A TEST, NOT CURRENTLY WORKING 
         <div class="mb-3">
-            <p>Choose your preferred work center: </p>
-            <input asp-for="PreferredCenters" type="radio" id="UNF" name="preferred_center" value="UNF" class="form-control">
-            <label asp-for="PreferredCenters" for="UNF" class="form-label">UNF</label><br />
+            <label asp-for="preferredCenter" class="form-label">Preferred Center</label>
+            <select asp-for="preferredCenter" asp-items="Html.GetEnumSelectList<PreferredCenter>()" class="form-control">
+                <option>Select Preferred Center... </option>
+            </select>
+        </div>
 
-            <input asp-for="PreferredCenters" type="radio" id="Avenues" name="preferred_center" value="Avenues" class="form-control">
-            <label asp-for="PreferredCenters" for="Avenues" class="form-label">Avenues</label><br />
 
-            <input asp-for="PreferredCenters" type="radio" id="Southside" name="preferred_center" value="Southside" class="form-control">
-            <label asp-for="PreferredCenters" for="Southside" class="form-label">Southside</label><br />
-           
+
+        <!--
+        <div class="mb-3">
+            <label asp-for="PreferredCenters" class="form-label">Peferred Centers (Choose one: UNF, Avenues, or Southside)</label>
+            <input asp-for="PreferredCenters" type="text" class="form-control">
             <span asp-validation-for="PreferredCenters" class="text-danger"></span>
 
         </div>
             -->
+
+
+        <!-- THIS IS A TEST, NOT CURRENTLY WORKING
+    <div class="mb-3">
+        <p>Choose your preferred work center: </p>
+        <input asp-for="PreferredCenters" type="radio" id="UNF" name="preferred_center" value="UNF" class="form-control">
+        <label asp-for="PreferredCenters" for="UNF" class="form-label">UNF</label><br />
+
+        <input asp-for="PreferredCenters" type="radio" id="Avenues" name="preferred_center" value="Avenues" class="form-control">
+        <label asp-for="PreferredCenters" for="Avenues" class="form-label">Avenues</label><br />
+
+        <input asp-for="PreferredCenters" type="radio" id="Southside" name="preferred_center" value="Southside" class="form-control">
+        <label asp-for="PreferredCenters" for="Southside" class="form-label">Southside</label><br />
+
+        <span asp-validation-for="PreferredCenters" class="text-danger"></span>
+
+    </div>
+        -->
 
 
         <div class="mb-3">
@@ -167,7 +178,7 @@
 
         </div>
 
-        
+
 
     </form>
 </div>
