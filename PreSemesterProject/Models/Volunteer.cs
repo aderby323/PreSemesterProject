@@ -11,7 +11,7 @@ namespace PreSemesterProject.Models
         public string LastName { get; set; }
         public string Password { get; set; }
         // public string PreferredCenters { get; set; }
-        public PreferredCenter preferredCenter { get; set; }
+        public PreferredCenter PreferredCenters { get; set; }
         public string SkillsAndInterests { get; set; }
         public string Availability { get; set; }
         public string Address { get; set; }
