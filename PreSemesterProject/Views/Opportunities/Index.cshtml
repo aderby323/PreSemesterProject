@@ -1,7 +1,5 @@
 ﻿@model List<PreSemesterProject.Models.Opportunity>
 
-
-
 <div class="container">
     <h2>Opportunities</h2>
 </div>
@@ -27,9 +25,11 @@
         <div class="nav-opportunity-option">
             View Volunteer Opportunity
         </div>
+    <a asp-action="Create" style="margin-left: auto; text-decoration: none;">
         <div class="nav-opportunity-option" style="margin-left: auto">
-            <a asp-action="Create"><i class="fas fa-plus"></i> Add New Opportunity</a>
+            <i class="fas fa-plus"></i> Add New Opportunity
         </div>
+    </a>
     </div>
     <form asp-action="Index" method="get">
         <div class="input-group mb-0">
@@ -41,39 +41,49 @@
     </form>
     @if (Model.Count > 0)
     {
-        <table class="opportunities-table">
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Location</th>
-                <th>Date</th>
-                <th></th>
-
-            </tr>
-            @foreach (var x in Model)
-            {
-                <tr>
-                    <td>@x.Title</td>
-                    <td>@x.Description</td>
-                    <td>@x.Location</td>
-                    <td>@x.ModifiedOn</td>
-                    <td>
-                        <div class="opportunity-options">
-                            <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.OpportunityID">Edit</button>
-                            <button class="btn btn-outline-danger dropdown-toggle" id="deleteDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete</button>
-                            <div class="dropdown-menu" aria-labelledby="deleteDrop">
-                                <div class="container-fluid">
+<table class="opportunities-table">
+    <colgroup>
+        <col style="width:20%">
+        <col style="width:30%">
+        <col style="width:15%">
+        <col style="width:20%">
+        <col style="width:15%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.Title</td>
+            <td>@x.Description</td>
+            <td>@x.Location</td>
+            <td>@x.Date</td>
+            <td>
+                <div class="button-options">
+                    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@x.OpportunityID"><span style="display: block">Edit</span></a>
+                    <div>
+                        <button class="btn btn-outline-danger dropdown-toggle" id="deleteDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete</button>
+                        <div class="dropdown-menu" aria-labelledby="deleteDrop">
+                            <div class="container-fluid">
                                 <form method="post">
                                     <p>Are you sure?</p>
                                     <button type="submit" asp-action="Delete" asp-route-id="@x.OpportunityID" class="btn btn-outline-danger">Yes</button>
                                     <button type="button" class="btn btn-outline-primary">No</button>
                                 </form>
-                                </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            }
-        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
     }
 </section>
