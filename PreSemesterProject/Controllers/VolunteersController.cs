@@ -124,7 +124,28 @@ namespace PreSemesterProject.Controllers
 
 
         /* TEST COPIED FROM OPPORTUNITY SIDE */
+        [HttpGet]
+        public IActionResult Edit(string username)
+        {
+            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
 
+            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
+
+            return View(volunteer);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Opportunity opportunity)
+        {
+            if (!ModelState.IsValid) { return View(opportunity); }
+            Opportunity oldOpportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == opportunity.OpportunityID).FirstOrDefault();
+
+            Delete(oldOpportunity.OpportunityID);
+            Create(opportunity);
+
+            return RedirectToAction("Index");
+
+        }
 
     }
 }
