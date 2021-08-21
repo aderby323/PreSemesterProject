@@ -75,8 +75,13 @@
                     <td>@x.Inactive</td>
                     <td>
                         <div class="volunteer-options">
+                            <!--
                             <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.Username">Edit</button>
                             <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.Username">Delete</button>
+                            -->
+
+                            @Html.ActionLink("Edit", "Edit", "Volunteers", @x.Username, new { @class = "btn btn-outline-info" })
+                            @Html.ActionLink("Delete", "Delete", "Volunteers", x.Username, new { @class = "btn btn-outline-danger" })
                         </div>
                     </td>
                 </tr>
