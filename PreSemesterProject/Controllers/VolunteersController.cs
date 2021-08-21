@@ -67,23 +67,23 @@ namespace PreSemesterProject.Controllers
             return View(volunteers.ToList());
         } // end Index Action
 
-        [HttpGet]
-        public IActionResult Edit(string username)
-        {
-            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
+        //[HttpGet]
+        //public IActionResult Edit(string username)
+        //{
+        //    Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
 
-            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
+        //    if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
 
-            return View(volunteer);
-        }
+        //    return View(volunteer);
+        //}
 
-        [HttpPost]
-        public IActionResult Edit(Volunteer volunteer)
-        {
-            if (!ModelState.IsValid) { return BadRequest(); }
+        //[HttpPost]
+        //public IActionResult Edit(Volunteer volunteer)
+        //{
+        //    if (!ModelState.IsValid) { return BadRequest(); }
 
-            return Ok(volunteer);
-        }
+        //    return Ok(volunteer);
+        //}
 
         [HttpPost]
         public IActionResult Delete(string username)
@@ -117,6 +117,13 @@ namespace PreSemesterProject.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+        /* TEST COPIED FROM OPPORTUNITY SIDE */
 
 
     }
