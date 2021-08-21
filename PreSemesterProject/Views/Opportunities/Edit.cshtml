@@ -1,36 +1,61 @@
 ﻿@model PreSemesterProject.Models.Opportunity
+@{
+    ViewData["Title"] = "Edit Opportunity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<h2>Edit Opportunity: @Model.OpportunityID</h2>
+<div class="containter">
+    <h2>Edit: @Model.Title </h2>
+</div>
+
 <div class="container">
-    <form asp-action="Edit" method="post">
-        <input asp-for="OpportunityID" value="@Model.OpportunityID" style="display: none">
-        <div class="row">
-            <div class="col-6">
-                <label asp-for="Title" class="form-label">Title</label>
-                <input asp-for="Title" type="text" class="form-control" value="@Model.Title">
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="col-3">
-                <label asp-for="Location" class="form-label">Location</label>
-                <input asp-for="Location" class="form-control" value="@Model.Location">
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="col-3">
-                <label asp-for="Date" class="form-label">Date & Time</label>
-                <input asp-for="Date" type="datetime-local" class="form-control">
-                <span asp-validation-for="Date" class="text-danger"></span>
+    @using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.OpportunityID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <label asp-for="Description" class="form-label">Descripion</label>
-                <textarea asp-for="Description" class="form-control" value="@Model.Description"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="button-options" style="margin: 10px;">
-            <button type="submit" asp-action="Edit" class="btn btn-outline-primary">Edit Opportunity</button> | 
+            <button type="submit" asp-action="Edit" class="btn btn-outline-primary">Save Changes</button> |
             <button asp-action="Index" class="btn btn-outline-danger">Back</button>
         </div>
+    </div>
+}
+    <form asp-action="Edit" method="post">
     </form>
 </div>
