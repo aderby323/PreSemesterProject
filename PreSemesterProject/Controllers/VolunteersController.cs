@@ -70,7 +70,7 @@ namespace PreSemesterProject.Controllers
         [HttpGet]
         public IActionResult Edit(string username)
         {
-            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.VolunteerID == username).FirstOrDefault();
+            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
 
             if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
 
