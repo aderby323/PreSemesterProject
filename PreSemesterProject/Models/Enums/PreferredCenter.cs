@@ -5,6 +5,10 @@ namespace PreSemesterProject.Models
     {
         UNF,
         Avenues,
-        Southside
+        Southside,
+        Hodges,
+        Kernan,
+        Westside,
+        Baymeadows
     }
 }

@@ -1,0 +1,44 @@
+﻿@model PreSemesterProject.Models.ViewModels.MatchesViewModel
+
+<h2>Viewing Volunteer Matches for Opportunity: @Model.OpportunityTitle</h2>
+
+@if (Model.Volunteers.Count <= 0)
+{
+    <div class="alert alert-info" role="alert">
+        No Volunteers found for this Opportunity.
+    </div>
+}
+@if (Model.Volunteers.Count > 0) 
+{
+    <table class="volunteers-table">
+        <colgroup>
+            <col style="width:20%">
+            <col style="width:40%">
+            <col style="width:20%">
+            <col style="width:20%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Availability</th>
+                <th>Approval Status</th>
+            </tr>
+        </thead>
+        @foreach (var x in Model.Volunteers)
+        {
+            <tr>
+                <td>@x.Username</td>
+                <td>@x.FirstName @x.LastName</td>
+                <td>@x.Availability</td>
+                <td>@x.VolunteerApprovalStatus</td>
+                <td>
+                    <div class="volunteer-options">
+                        <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
+                        <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}

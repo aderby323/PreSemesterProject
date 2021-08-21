@@ -25,7 +25,7 @@ namespace PreSemesterProject.Repository
                 OpportunityID = Guid.NewGuid().ToString(),
                 Title = "Opportunity 1",
                 Description = "This is the first opportunity. There isn't much to do but that's ok! :)",
-                Location = "Avenues",
+                Location = PreferredCenter.Avenues,
                 Date = new DateTime(2021, 8, 2)
             });
             Opportunities.Add(new Opportunity()
@@ -33,19 +33,35 @@ namespace PreSemesterProject.Repository
                 OpportunityID = Guid.NewGuid().ToString(),
                 Title = "Opportunity 2",
                 Description = "This is the second opportunity. Just another plain ol opportunity",
-                Location = "UNF",
+                Location = PreferredCenter.UNF,
                 Date = new DateTime(2021, 6, 9)
             });
+
             Opportunities.Add(new Opportunity()
             {
                 OpportunityID = Guid.NewGuid().ToString(),
                 Title = "Opportunity 3",
                 Description = "This is the third opportunity. Yet another opportunity for a time of thrills and things and such.",
-                Location = "Southside",
+                Location = PreferredCenter.Southside,
                 Date = new DateTime(2020, 1, 4)
             });
+            Opportunities.Add(new Opportunity()
+            {
+                OpportunityID = Guid.NewGuid().ToString(),
+                Title = "Opportunity 4",
+                Description = "Kanye, please drop Donda.",
+                Location = PreferredCenter.UNF,
+                Date = new DateTime(2021, 8, 27)
+            });
+            Opportunities.Add(new Opportunity()
+            {
+                OpportunityID = Guid.NewGuid().ToString(),
+                Title = "Opportunity 5",
+                Description = "Another test opportunity sheeeeeeesh",
+                Location = PreferredCenter.Baymeadows,
+                Date = new DateTime(2021, 6, 9)
+            });
 
-            
             Volunteers = new List<Volunteer>();
             Volunteers.Add(new Volunteer()
             {

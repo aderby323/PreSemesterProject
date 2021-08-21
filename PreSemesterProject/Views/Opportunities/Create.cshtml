@@ -11,7 +11,9 @@
             </div>
             <div class="col-3">
                 <label asp-for="Location" class="form-label">Location</label>
-                <input asp-for="Location" class="form-control">
+                <select asp-for="Location" asp-items="Html.GetEnumSelectList<PreferredCenter>()" class="form-control">
+                    <option>Select location</option>
+                </select>
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="col-3">

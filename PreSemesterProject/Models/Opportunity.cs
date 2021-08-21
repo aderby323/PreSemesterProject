@@ -1,5 +1,4 @@
-﻿using PreSemesterProject.Models.Attributes;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PreSemesterProject.Models
@@ -16,8 +15,7 @@ namespace PreSemesterProject.Models
         public string Description { get; set; }
 
         [Required]
-        [ZipCode]
-        public string Location { get; set; }
+        public PreferredCenter Location { get; set; }
 
         [Required]
         public DateTime Date { get; set; }

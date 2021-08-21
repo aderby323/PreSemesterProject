@@ -6,6 +6,7 @@ using PreSemesterProject.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PreSemesterProject.Controllers
 {
@@ -101,5 +102,22 @@ namespace PreSemesterProject.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult GetMatches(string id)
+        {
+            Opportunity opportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID.Equals(id)).FirstOrDefault();
+
+            if (opportunity is null) { return View(); }
+
+            MatchesViewModel matches = new MatchesViewModel()
+            {
+                OpportunityTitle = opportunity.Title,
+                Volunteers = _fakeRepository.Volunteers.Where(x => x.PreferredCenters == opportunity.Location).OrderBy(x => x.VolunteerApprovalStatus).ToList()
+            };
+
+            return View(matches);
+        }
+
     }
 }
