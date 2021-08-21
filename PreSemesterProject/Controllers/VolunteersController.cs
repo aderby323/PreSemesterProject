@@ -135,13 +135,13 @@ namespace PreSemesterProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Opportunity opportunity)
+        public IActionResult Edit(Volunteer volunteer)
         {
-            if (!ModelState.IsValid) { return View(opportunity); }
-            Opportunity oldOpportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == opportunity.OpportunityID).FirstOrDefault();
+            if (!ModelState.IsValid) { return View(volunteer); }
+            Volunteer oldVolunteer = _fakeRepository.Volunteers.Where(x => x.Username == volunteer.Username).FirstOrDefault();
 
-            Delete(oldOpportunity.OpportunityID);
-            Create(opportunity);
+            Delete(oldVolunteer.Username);
+            Create(volunteer);
 
             return RedirectToAction("Index");
 
