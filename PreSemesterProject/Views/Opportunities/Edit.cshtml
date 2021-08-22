@@ -1,4 +1,4 @@
-﻿@model PreSemesterProject.Models.Opportunity
+﻿@model PreSemesterProject.Models.DBModels.Opportunity
 @{
     ViewData["Title"] = "Edit Opportunity";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +16,7 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.OpportunityID)
+        @Html.HiddenFor(model => model.OpportunityId)
 
     <div class="row">
         <div class="col-6">

@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PreSemesterProject.Models;
+using PreSemesterProject.Models.DBModels;
 using PreSemesterProject.Models.ViewModels;
-using PreSemesterProject.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PreSemesterProject.Controllers
 {
@@ -14,17 +12,17 @@ namespace PreSemesterProject.Controllers
     public class OpportunitiesController : Controller
     {
 
-        private FakeRepository _fakeRepository;
+        private readonly VolunteerManagementSystemContext _context;
 
-        public OpportunitiesController(FakeRepository fakeRepository)
+        public OpportunitiesController(VolunteerManagementSystemContext context)
         {
-            _fakeRepository = fakeRepository;
+            _context = context;
         }
         
         public IActionResult Index([FromQuery] string filter, string searchString)
         {
             ViewData["CurrentSearch"] = searchString;
-            IEnumerable<Opportunity> opportunities = _fakeRepository.Opportunities;
+            IEnumerable<Opportunity> opportunities = _context.Opportunities;
 
             if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }
 
@@ -45,7 +43,7 @@ namespace PreSemesterProject.Controllers
                     break;
                 default:
                     Console.WriteLine("Showing opportunities");
-                    opportunities = opportunities.OrderBy(x => x.OpportunityID);
+                    opportunities = opportunities.OrderBy(x => x.OpportunityId);
                     break;
             }
 
@@ -53,9 +51,9 @@ namespace PreSemesterProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(string id)
+        public IActionResult Edit(int id)
         {
-            Opportunity opportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == id).FirstOrDefault();
+            Opportunity opportunity = _context.Opportunities.Where(x => x.OpportunityId == id).FirstOrDefault();
 
             if (opportunity is null) { return NotFound($"Opportunity with ID: {id} not found."); }
 
@@ -66,23 +64,30 @@ namespace PreSemesterProject.Controllers
         public IActionResult Edit(Opportunity opportunity)
         {
             if (!ModelState.IsValid) { return View(opportunity); }
-            Opportunity oldOpportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == opportunity.OpportunityID).FirstOrDefault();
-            
-            Delete(oldOpportunity.OpportunityID);
-            Create(opportunity);
+
+            Opportunity oldOpportunity = _context.Opportunities.Where(x => x.OpportunityId == opportunity.OpportunityId).FirstOrDefault();
+
+            oldOpportunity.Title = opportunity.Title;
+            oldOpportunity.Description = opportunity.Description;
+            oldOpportunity.Date = opportunity.Date;
+            oldOpportunity.Location = opportunity.Location;
+
+            _context.Update(oldOpportunity);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
 
         }
 
         [HttpPost]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
-            Opportunity opportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID == id).FirstOrDefault();
+            Opportunity opportunity = _context.Opportunities.Where(x => x.OpportunityId == id).FirstOrDefault();
 
             if (opportunity is null) { return NotFound($"Opportunity with ID: {id} not found."); }
 
-            _fakeRepository.Opportunities.Remove(opportunity);
+            _context.Opportunities.Remove(opportunity);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -98,24 +103,23 @@ namespace PreSemesterProject.Controllers
         {
             if (!ModelState.IsValid) { return View(); }
 
-            opportunity.OpportunityID = Guid.NewGuid().ToString();
-
-            _fakeRepository.Opportunities.Add(opportunity);
+            _context.Opportunities.Add(opportunity);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult GetMatches(string id)
+        public IActionResult GetMatches(int id)
         {
-            Opportunity opportunity = _fakeRepository.Opportunities.Where(x => x.OpportunityID.Equals(id)).FirstOrDefault();
+            Opportunity opportunity = _context.Opportunities.Where(x => x.OpportunityId == id).FirstOrDefault();
 
             if (opportunity is null) { return View(); }
 
             MatchesViewModel matches = new MatchesViewModel()
             {
                 OpportunityTitle = opportunity.Title,
-                Volunteers = _fakeRepository.Volunteers.Where(x => x.PreferredCenters == opportunity.Location).OrderBy(x => x.VolunteerApprovalStatus).ToList()
+                Volunteers = _context.Volunteers.Where(x => x.PreferredCenter == opportunity.Location).OrderBy(x => x.ApprovalStatus).ToList()
             };
 
             return View(matches);

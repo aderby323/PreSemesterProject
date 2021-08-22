@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
@@ -41,6 +40,7 @@ namespace PreSemesterProject.Models.DBModels
                     .IsUnicode(false);
 
                 entity.Property(e => e.Location)
+                    .HasConversion<string>()
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -140,6 +140,7 @@ namespace PreSemesterProject.Models.DBModels
                     .IsUnicode(false);
 
                 entity.Property(e => e.PreferredCenter)
+                    .HasConversion<string>()
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);

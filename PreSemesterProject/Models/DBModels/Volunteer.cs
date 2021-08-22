@@ -17,7 +17,7 @@ namespace PreSemesterProject.Models.DBModels
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PreferredCenter { get; set; }
+        public PreferredCenter PreferredCenter { get; set; }
         public string SkillsAndInterests { get; set; }
         public string Availability { get; set; }
         public string EducationBackground { get; set; }
