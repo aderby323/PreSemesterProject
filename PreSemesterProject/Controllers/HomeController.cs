@@ -55,8 +55,16 @@ namespace PreSemesterProject.Controllers
                 }
 
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-            HttpContext.Session.SetString("SessionKey", login.Username);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Logout() 
+        {
+            if (!User.Identity.IsAuthenticated) { return BadRequest("Not logged in to the system."); }
+
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
         }
 
         public IActionResult Privacy()
