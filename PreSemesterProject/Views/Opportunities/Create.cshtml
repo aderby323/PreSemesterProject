@@ -1,7 +1,7 @@
 ﻿@model PreSemesterProject.Models.Opportunity
 
-<h2>Add a New Opportunity</h2>
 <div class="container">
+    <h2 class="entity-header">Add a New Opportunity</h2>
     <form asp-action="Create" method="post">
         <div class="row">
             <div class="col-6">
@@ -22,15 +22,16 @@
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 20px">
             <div class="col-12">
-                <label asp-for="Description" class="form-label">Descripion</label>
-                <textarea asp-for="Description" class="form-control"></textarea>
+                <label asp-for="Description" class="form-label">Description</label>
+                <textarea asp-for="Description" rows="6" class="form-control" placeholder="Maximum of 2000 characters"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
         </div>
-        <div class="button-options" style="margin: 10px;">
-            <button type="submit" asp-action="Create" class="btn btn-outline-primary">Create Opportunity</button> |
+        <hr />
+        <div class="button-options" style="margin-top: 10px;">
+            <button type="submit" asp-action="Create" class="btn btn-outline-info">Create Opportunity</button> 
             <button asp-action="Index" class="btn btn-outline-danger">Back</button>
         </div>
     </form>

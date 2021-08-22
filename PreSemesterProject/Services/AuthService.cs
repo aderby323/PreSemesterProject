@@ -24,18 +24,11 @@ namespace PreSemesterProject.Services
         {
             if (login is null || string.IsNullOrEmpty(login.Username) || string.IsNullOrEmpty(login.Password)) { return default; }
 
-            User user = _repository.Users.Find(x => x.Username.Equals(login.Username));
+            User user = _repository.Users.Find(x => x.Username.Equals(login.Username) && x.Password.Equals(login.Password));
 
             if (user is null) { return default; }
 
-            if (user.Password.Equals(login.Password))
-            {
-                return user;
-            }
-            else
-            {
-                return default;
-            }
+            return user;
         }
     }
 }

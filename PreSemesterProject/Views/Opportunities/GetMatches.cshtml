@@ -1,6 +1,11 @@
 ﻿@model PreSemesterProject.Models.ViewModels.MatchesViewModel
 
-<h2>Viewing Volunteer Matches for Opportunity: @Model.OpportunityTitle</h2>
+<div class="container entity-header">
+    <h2>@Model.OpportunityTitle</h2>
+</div>
+<div class="container">
+    <h4>Viewing all volunteer matches:</h4>
+</div>
 
 @if (Model.Volunteers.Count <= 0)
 {
@@ -8,19 +13,21 @@
         No Volunteers found for this Opportunity.
     </div>
 }
-@if (Model.Volunteers.Count > 0) 
+@if (Model.Volunteers.Count > 0)
 {
     <table class="volunteers-table">
         <colgroup>
             <col style="width:20%">
             <col style="width:40%">
+            <col style="width:10%">
             <col style="width:20%">
-            <col style="width:20%">
+            <col style="width:10%">
         </colgroup>
         <thead>
             <tr>
                 <th>Username</th>
                 <th>Name</th>
+                <th>Preferred Center</th>
                 <th>Availability</th>
                 <th>Approval Status</th>
             </tr>
@@ -30,15 +37,16 @@
             <tr>
                 <td>@x.Username</td>
                 <td>@x.FirstName @x.LastName</td>
+                <td>@x.PreferredCenters</td>
                 <td>@x.Availability</td>
                 <td>@x.VolunteerApprovalStatus</td>
-                <td>
-                    <div class="volunteer-options">
-                        <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.VolunteerID">Edit</button>
-                        <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.VolunteerID">Delete</button>
-                    </div>
-                </td>
             </tr>
         }
     </table>
+    <div style="margin-top: 20px">
+        <em>
+            The systems currently matches potential volunteers with opportunities through the volunteer's preferred center and the location of the opportunity. Only approved and pending volunteers are shown.
+        </em>
+    </div>
+    <a class="btn btn-outline-danger" asp-action="Index" style="margin-top: 10px"><span style="display: block;">Back</span></a>
 }
