@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using PreSemesterProject.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -10,19 +9,21 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using PreSemesterProject.Repository;
 using Microsoft.AspNetCore.Authentication;
+using PreSemesterProject.Models.DBModels;
+using System.Linq;
 
 namespace PreSemesterProject.Controllers
 {
     
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IAuthService _authService;
+        private readonly VolunteerManagementSystemContext _context;
 
-        public HomeController(ILogger<HomeController> logger, IAuthService authService, FakeRepository repository)
+        public HomeController(IAuthService authService, VolunteerManagementSystemContext context)
         {
-            _logger = logger;
             _authService = authService;
+            _context = context;
         }
 
         [Authorize("Admin")]
@@ -47,12 +48,11 @@ namespace PreSemesterProject.Controllers
                 return View();
             }
 
+            string role = _context.UserRoles.Where(x => x.Username.Equals(user.Username)).FirstOrDefault().Role;
+
             ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
-                foreach(string role in user.Roles)
-                {
-                    identity.AddClaim(new Claim(ClaimTypes.Role, role));
-                }
+                identity.AddClaim(new Claim(ClaimTypes.Role, role));
 
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
             return RedirectToAction("Index");
