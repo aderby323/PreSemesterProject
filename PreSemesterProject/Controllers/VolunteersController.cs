@@ -147,5 +147,28 @@ namespace PreSemesterProject.Controllers
 
             return View(matches);
         }
+
+        [HttpGet]
+        public IActionResult AddEmergencyInfo(int id)
+        {
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
+
+            if (volunteer is null) { return View(); }
+
+            return View(new VolunteerEmergencyVM() { VolunteerID = id } );
+        }
+
+        [HttpPost]
+        public IActionResult AddEmergencyInfo(VolunteerEmergencyVM info)
+        {
+            if (!ModelState.IsValid) { return View(); }
+
+            info.Contact.VolunteerId = info.VolunteerID;
+
+            _context.Add(info.Contact);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
