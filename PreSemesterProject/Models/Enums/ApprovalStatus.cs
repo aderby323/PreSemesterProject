@@ -5,6 +5,7 @@ namespace PreSemesterProject.Models
     {
         Approved,
         Pending,
-        Denied
+        Denied,
+        Inactive
     }
 }

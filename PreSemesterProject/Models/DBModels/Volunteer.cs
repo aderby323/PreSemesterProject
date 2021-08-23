@@ -27,7 +27,7 @@ namespace PreSemesterProject.Models.DBModels
         public string CellPhone { get; set; }
         public bool DlonFile { get; set; }
         public bool SsonFile { get; set; }
-        public string ApprovalStatus { get; set; }
+        public ApprovalStatus ApprovalStatus { get; set; }
 
         public virtual ICollection<VolunteerAddress> VolunteerAddresses { get; set; }
         public virtual ICollection<VolunteerEmergencyContact> VolunteerEmergencyContacts { get; set; }

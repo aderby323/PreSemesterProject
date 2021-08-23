@@ -102,6 +102,7 @@ namespace PreSemesterProject.Models.DBModels
                 entity.Property(e => e.VolunteerId).HasColumnName("VolunteerID");
 
                 entity.Property(e => e.ApprovalStatus)
+                    .HasConversion<string>()
                     .IsRequired()
                     .HasMaxLength(15)
                     .IsUnicode(false);

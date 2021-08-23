@@ -28,7 +28,7 @@ namespace PreSemesterProject.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                opportunities = opportunities.Where(x => x.Title.Contains(searchString));
+                opportunities = opportunities.Where(x => x.Title.ToLower().Contains(searchString.ToLower()));
             }
 
             switch (filter)
