@@ -11,24 +11,24 @@
     <form asp-action="Create" method="post">
         <div class="mb-3">
             <label asp-for="Username" class="form-label">Username</label>
-            <input asp-for="Username" type="text" class="form-control">
+            <input asp-for="Username" type="text" class="form-control" required>
             <span asp-validation-for="Username" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="FirstName" class="form-label">First Name</label>
-            <input asp-for="FirstName" type="text" class="form-control">
+            <input asp-for="FirstName" type="text" class="form-control" required>
             <span asp-validation-for="FirstName" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
             <label asp-for="LastName" class="form-label">Last Name</label>
-            <input asp-for="LastName" type="text" class="form-control">
+            <input asp-for="LastName" type="text" class="form-control" required>
             <span asp-validation-for="LastName" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
             <label asp-for="Password" class="form-label">Password</label>
-            <input asp-for="Password" type="text" class="form-control">
+            <input asp-for="Password" type="text" class="form-control" required>
             <span asp-validation-for="Password" class="text-danger"></span>
 
         </div>
@@ -36,7 +36,7 @@
 
         <div class="mb-3">
             <label asp-for="PreferredCenters" class="form-label">Preferred Center</label>
-            <select asp-for="PreferredCenters" asp-items="Html.GetEnumSelectList<PreferredCenter>()" class="form-control">
+            <select asp-for="PreferredCenters" asp-items="Html.GetEnumSelectList<PreferredCenter>()" class="form-control" required>
                 <option>Select Preferred Center... </option>
             </select>
         </div>
@@ -79,13 +79,13 @@
         </div>
         <div class="mb-3">
             <label asp-for="Availability" class="form-label">Availability (Use format: Day - Day 00:00pm to 00:00pm)</label>
-            <input asp-for="Availability" type="text" class="form-control">
+            <input asp-for="Availability" type="text" class="form-control" required>
             <span asp-validation-for="Availability" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
             <label asp-for="Address" class="form-label">Address</label>
-            <input asp-for="Address" type="text" class="form-control">
+            <input asp-for="Address" type="text" class="form-control" required>
             <span asp-validation-for="Address" class="text-danger"></span>
 
         </div>
@@ -103,13 +103,13 @@
         </div>
         <div class="mb-3">
             <label asp-for="CellPhone" class="form-label">Cell Phone (Use format: xxx-xxx-xxxx)</label>
-            <input asp-for="CellPhone" type="text" class="form-control">
+            <input asp-for="CellPhone" type="text" class="form-control" required>
             <span asp-validation-for="CellPhone" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
             <label asp-for="EmailAddress" class="form-label">Email Address</label>
-            <input asp-for="EmailAddress" type="text" class="form-control">
+            <input asp-for="EmailAddress" type="text" class="form-control" required>
             <span asp-validation-for="EmailAddress" class="text-danger"></span>
 
         </div>
@@ -127,19 +127,19 @@
         </div>
         <div class="mb-3">
             <label asp-for="EmergencyContactName" class="form-label">Emergency Contact Name</label>
-            <input asp-for="EmergencyContactName" type="text" class="form-control">
+            <input asp-for="EmergencyContactName" type="text" class="form-control" required>
             <span asp-validation-for="EmergencyContactName" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
             <label asp-for="EmergencyPhone" class="form-label">Emergency Contact Phone (Use format: xxx-xxx-xxxx)</label>
-            <input asp-for="EmergencyPhone" type="text" class="form-control">
+            <input asp-for="EmergencyPhone" type="text" class="form-control" required>
             <span asp-validation-for="EmergencyPhone" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
             <label asp-for="EmergencyEmailAddress" class="form-label">Emergency Contact Email Address</label>
-            <input asp-for="EmergencyEmailAddress" type="text" class="form-control">
+            <input asp-for="EmergencyEmailAddress" type="text" class="form-control" required>
             <span asp-validation-for="EmergencyEmailAddress" class="text-danger"></span>
 
         </div>
@@ -159,7 +159,7 @@
 
         <div class="mb-3">
             <label asp-for="VolunteerApprovalStatus" class="form-label">Approval Status</label>
-            <select asp-for="VolunteerApprovalStatus" asp-items="Html.GetEnumSelectList<ApprovalStatus>()" class="form-control">
+            <select asp-for="VolunteerApprovalStatus" asp-items="Html.GetEnumSelectList<ApprovalStatus>()" class="form-control" required>
                 <option>Select approval status... </option>
             </select>
 

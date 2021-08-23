@@ -62,18 +62,18 @@ namespace PreSemesterProject.Controllers
         {
             Models.DBModels.Volunteer volunteer = _context.Volunteers.Where(x => x.Username.Equals(username)).FirstOrDefault();
 
-            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
+        //    if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
 
-            return View(volunteer);
-        }
+        //    return View(volunteer);
+        //}
 
         [HttpPost]
         public IActionResult Edit(Models.DBModels.Volunteer volunteer)
         {
             if (!ModelState.IsValid) { return BadRequest(); }
 
-            return Ok(volunteer);
-        }
+        //    return Ok(volunteer);
+        //}
 
         [HttpPost]
         public IActionResult Delete(string username)
@@ -103,32 +103,42 @@ namespace PreSemesterProject.Controllers
 
 
 
-
-
-
-
-        /*
-        public IActionResult Index()
+        /* TEST COPIED FROM OPPORTUNITY SIDE */
+        [HttpPost]
+        public IActionResult Delete(string username)
         {
-            //return Ok("Volunteers");
-            return View("~/Views/Volunteers/Index.cshtml");
-        }
-        
+            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
 
-        public IActionResult Filters()
-        {
-            return View("~/Views/Volunteers/VolunteersFilters.cshtml");
+            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
+
+            _fakeRepository.Volunteers.Remove(volunteer);
+
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Edit()
+
+        [HttpGet]
+        public IActionResult Edit(string username)
         {
-            return View("~/Views/Volunteers/VolunteersEdit.cshtml");
+            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
+
+            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
+
+            return View(volunteer);
         }
 
-        public IActionResult Add()
+        [HttpPost]
+        public IActionResult Edit(Volunteer volunteer)
         {
-            return View("~/Views/Volunteers/VolunteersAdd.cshtml");
+            if (!ModelState.IsValid) { return View(volunteer); }
+            Volunteer oldVolunteer = _fakeRepository.Volunteers.Where(x => x.Username == volunteer.Username).FirstOrDefault();
+
+            Delete(oldVolunteer.Username);
+            Create(volunteer);
+
+            return RedirectToAction("Index");
+
         }
-        */
+
     }
 }
