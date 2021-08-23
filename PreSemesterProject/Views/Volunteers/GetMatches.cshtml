@@ -1,0 +1,49 @@
+﻿@model PreSemesterProject.Models.ViewModels.VolunteerMatchesVM
+
+<div class="container entity-header">
+    <h2>@Model.VolunteerUsername</h2>
+</div>
+<div class="container">
+    <h4>Viewing all opportunity matches:</h4>
+</div>
+
+@if (Model.Opportunities.Count <= 0)
+{
+    <div class="alert alert-info" role="alert">
+        No opportunities found for this volunteer.
+    </div>
+}
+@if (Model.Opportunities.Count > 0)
+{
+    <table class="opportunities-table">
+        <colgroup>
+            <col style="width:20%">
+            <col style="width:40%">
+            <col style="width:10%">
+            <col style="width:20%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Date and Time</th>
+            </tr>
+        </thead>
+        @foreach (var x in Model.Opportunities)
+        {
+            <tr>
+                <td>@x.Title</td>
+                <td>@x.Description</td>
+                <td>@x.Location</td>
+                <td>@x.Date</td>
+            </tr>
+        }
+    </table>
+}
+<div style="margin-top: 20px">
+    <em>
+        The systems currently matches potential volunteers with opportunities through the volunteer's preferred center and the location of the opportunity. Only approved and pending volunteers are shown.
+    </em>
+</div>
+<a class="btn btn-outline-danger" asp-action="Index" style="margin-top: 10px"><span style="display: block;">Back</span></a>

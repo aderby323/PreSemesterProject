@@ -1,61 +1,106 @@
-﻿@model PreSemesterProject.Models.Volunteer
+﻿@model PreSemesterProject.Models.DBModels.Volunteer
+
 @{
-    ViewData["Title"] = "Edit Volunteer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="containter">
-    <h2>Edit: @Model.Username </h2>
-</div>
+<h2>Edit Volunteer: @Model.Username</h2>
 
 <div class="container">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Username)
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </div>
+    <form asp-action="Edit" method="post">
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="Username" class="form-label">Username</label>
+                <input asp-for="Username" type="text" class="form-control" value="@Model.Username">
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
+            <div class="col-4">
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input asp-for="FirstName" type="text" class="form-control" value="@Model.FirstName">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SkillsAndInterests, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SkillsAndInterests, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SkillsAndInterests, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="button-options" style="margin: 10px;">
-                <button type="submit" asp-action="Edit" class="btn btn-outline-primary">Save Changes</button> |
-                <button asp-action="Index" class="btn btn-outline-danger">Back</button>
+            <div class="col-4">
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input asp-for="LastName" type="text" class="form-control" value="@Model.LastName">
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
         </div>
-    }
-    <form asp-action="Edit" method="post">
+
+        <div>
+            <label asp-for="SkillsAndInterests" class="form-label">Skills and Interests</label>
+            <textarea asp-for="SkillsAndInterests" rows="6" class="form-control" placeholder="Maximum of 2000 characters" value="@Model.SkillsAndInterests"></textarea>
+            <span asp-validation-for="SkillsAndInterests" class="text-danger"></span>
+
+        </div>
+
+        <div>
+            <label asp-for="Availability" class="form-label">Availability (Use format: Day - Day 00:00pm to 00:00pm)</label>
+            <textarea asp-for="Availability" rows="6" class="form-control" placeholder="Maximum of 2000 characters" value="@Model.Availability"></textarea>
+            <span asp-validation-for="Availability" class="text-danger"></span>
+
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="HomePhone" class="form-label">Home Phone (Use format: xxx-xxx-xxxx)</label>
+                <input asp-for="HomePhone" type="text" class="form-control" value="@Model.HomePhone">
+                <span asp-validation-for="HomePhone" class="text-danger"></span>
+
+            </div>
+            <div class="col-4">
+                <label asp-for="WorkPhone" class="form-label">Work Phone (Use format: xxx-xxx-xxxx)</label>
+                <input asp-for="WorkPhone" type="text" class="form-control" value="@Model.WorkPhone">
+                <span asp-validation-for="WorkPhone" class="text-danger"></span>
+
+            </div>
+            <div class="col-4">
+                <label asp-for="CellPhone" class="form-label">Cell Phone (Use format: xxx-xxx-xxxx)</label>
+                <input asp-for="CellPhone" type="text" class="form-control" value="@Model.CellPhone">
+                <span asp-validation-for="CellPhone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div>
+            <label asp-for="EducationBackground" class="form-label">Educational Background</label>
+            <textarea asp-for="EducationBackground" rows="6" class="form-control" placeholder="Maximum of 2000 characters" value="@Model.EducationBackground"></textarea>
+            <span asp-validation-for="EducationBackground" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="CurrentLicenses" class="form-label">Current Professional Licenses</label>
+            <textarea asp-for="CurrentLicenses" rows="6" class="form-control" placeholder="Maximum of 2000 characters" value="@Model.CurrentLicenses"></textarea>
+            <span asp-validation-for="CurrentLicenses" class="text-danger"></span>
+        </div>
+
+        <div class="form-check">
+            <input asp-for="DlonFile" type="checkbox" class="form-check-input" value="@Model.DlonFile">
+            <label asp-for="DlonFile" class="form-check-label">Driver's License?</label>
+        </div>
+        <div class="form-check">
+            <input asp-for="SsonFile" type="checkbox" class="form-check-input" value="@Model.SsonFile">
+            <label asp-for="SsonFile" class="form-check-label">Social Security?</label>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="PreferredCenter" class="form-label">Preferred Center</label>
+                <select asp-for="PreferredCenter" asp-items="Html.GetEnumSelectList<PreferredCenter>()" class="form-control" value="@Model.PreferredCenter">
+                    <option>Select Preferred Center... </option>
+                </select>
+                <span asp-validation-for="PreferredCenter" class="text-danger"></span>
+
+            </div>
+            <div class="col-6">
+                <label asp-for="ApprovalStatus" class="form-label">Approval Status</label>
+                <select asp-for="ApprovalStatus" asp-items="Html.GetEnumSelectList<ApprovalStatus>()" class="form-control" value="@Model.ApprovalStatus">
+                    <option>Select approval status... </option>
+                </select>
+                <span asp-validation-for="ApprovalStatus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="button-options" style="margin-top: 10px;">
+            <button type="submit" asp-action="Edit" class="btn btn-outline-info">Edit Volunteer</button>
+            <button asp-action="Index" class="btn btn-outline-danger">Back</button>
+        </div>
     </form>
 </div>

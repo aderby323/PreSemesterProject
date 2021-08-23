@@ -5,6 +5,7 @@ using PreSemesterProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PreSemesterProject.Models;
 
 namespace PreSemesterProject.Controllers
 {
@@ -116,10 +117,12 @@ namespace PreSemesterProject.Controllers
 
             if (opportunity is null) { return View(); }
 
-            MatchesViewModel matches = new MatchesViewModel()
+            OpportunityMatchesVM matches = new OpportunityMatchesVM()
             {
                 OpportunityTitle = opportunity.Title,
-                Volunteers = _context.Volunteers.Where(x => x.PreferredCenter == opportunity.Location).OrderBy(x => x.ApprovalStatus).ToList()
+                Volunteers = _context.Volunteers
+                .Where(x => x.PreferredCenter == opportunity.Location && (x.ApprovalStatus == ApprovalStatus.Approved || x.ApprovalStatus == ApprovalStatus.Pending))
+                .OrderBy(x => x.ApprovalStatus).ToList()
             };
 
             return View(matches);

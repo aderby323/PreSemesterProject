@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using PreSemesterProject.Models;
 using PreSemesterProject.Models.DBModels;
+using PreSemesterProject.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace PreSemesterProject.Controllers
 {
@@ -22,7 +22,7 @@ namespace PreSemesterProject.Controllers
         public IActionResult Index([FromQuery] string filter, string searchString)
         {
             ViewData["CurrentSearch"] = searchString;
-            IEnumerable<Models.DBModels.Volunteer> volunteers = _context.Volunteers;
+            IEnumerable<Volunteer> volunteers = _context.Volunteers;
 
             if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }
 
@@ -34,19 +34,19 @@ namespace PreSemesterProject.Controllers
             switch (filter)
             {
                 
-                case "Approved / Pending Approval":
+                case "approvedpending":
                     volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Approved || x.ApprovalStatus == ApprovalStatus.Pending).OrderBy(x => x.Username);
                     break;
-                case "Approved":
+                case "approved":
                     volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Approved).OrderBy(x => x.Username);
                     break;
-                case "Pending":
+                case "pending":
                     volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Pending).OrderBy(x => x.Username);
                     break;
-                case "Disapproved":
+                case "disapproved":
                     volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Denied).OrderBy(x => x.Username);
                     break;
-                case "Inactive":
+                case "inactive":
                     volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Inactive).OrderBy(x => x.Username);
                     break;
                 
@@ -65,11 +65,13 @@ namespace PreSemesterProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Models.DBModels.Volunteer volunteer)
+        public IActionResult Create(Volunteer volunteer)
         {
             if (!ModelState.IsValid) { return View(); }
 
-            if (_context.Volunteers.Where(x => x.Username.Equals(volunteer.Username, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() != null) { return BadRequest("Volunteer already exists in the database"); }
+            Volunteer existing = _context.Volunteers.Where(x => x.Username.Equals(volunteer.Username)).FirstOrDefault();
+
+            if (existing != null) { return BadRequest("Volunteer already exists in the database"); }
 
             _context.Volunteers.Add(volunteer);
             _context.SaveChanges();
@@ -80,7 +82,7 @@ namespace PreSemesterProject.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Models.DBModels.Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
 
             if (volunteer is null) { return NotFound($"Volunteer not found."); }
 
@@ -93,7 +95,7 @@ namespace PreSemesterProject.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Models.DBModels.Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
 
             if (volunteer is null) { return NotFound($"Volunteer not found."); }
 
@@ -101,11 +103,11 @@ namespace PreSemesterProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Models.DBModels.Volunteer volunteer)
+        public IActionResult Edit(Volunteer volunteer)
         {
             if (!ModelState.IsValid) { return View(volunteer); }
 
-            Models.DBModels.Volunteer oldVolunteer = _context.Volunteers.Where(x => x.Username == volunteer.Username).FirstOrDefault();
+            Volunteer oldVolunteer = _context.Volunteers.Where(x => x.Username == volunteer.Username).FirstOrDefault();
 
             oldVolunteer = volunteer;
 
@@ -114,6 +116,22 @@ namespace PreSemesterProject.Controllers
 
             return RedirectToAction("Index");
 
+        }
+
+        [HttpGet]
+        public IActionResult GetMatches(int id)
+        {
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
+
+            if (volunteer is null) { return View(); }
+
+            VolunteerMatchesVM matches = new VolunteerMatchesVM()
+            {
+                VolunteerUsername = volunteer.Username,
+                Opportunities = _context.Opportunities.Where(x => x.Location == volunteer.PreferredCenter).OrderBy(x => x.Title).ToList()
+            };
+
+            return View(matches);
         }
     }
 }

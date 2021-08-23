@@ -13,31 +13,26 @@
         </div>
     }
 
-    <div class="nav-options-container">
-        <div class="dropdown">
-            <div class="nav-volunteer-option dropdown-toggle" id="volunteerFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-filter"></i> Change Volunteer Filter
-            </div>
-            <div class="dropdown-menu" aria-labelledby="volunteerFilter">
-                <a asp-action="Index" class="dropdown-item">None</a>
-                <a asp-action="Index" asp-route-filter="Approved / Pending Approval" class="dropdown-item">Approved / Pending Approval</a>
-                <a asp-action="Index" asp-route-filter="Approved" class="dropdown-item">Approved</a>
-                <a asp-action="Index" asp-route-filter="Pending" class="dropdown-item">Pending Approval</a>
-                <a asp-action="Index" asp-route-filter="Disapproved" class="dropdown-item">Disapproved</a>
-                <a asp-action="Index" asp-route-filter="Inactive" class="dropdown-item">Inactive</a>
-            </div>
+<div class="nav-options-container">
+    <div class="dropdown">
+        <div class="nav-volunteer-option dropdown-toggle" id="volunteerFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-filter"></i> Change Volunteer Filter
         </div>
-        <div class="nav-volunteer-option">
-            View Volunteer Opportunity
+        <div class="dropdown-menu" aria-labelledby="volunteerFilter">
+            <a asp-action="Index" class="dropdown-item">None</a>
+            <a asp-action="Index" asp-route-filter="ApprovedPending" class="dropdown-item">Approved / Pending Approval</a>
+            <a asp-action="Index" asp-route-filter="Approved" class="dropdown-item">Approved</a>
+            <a asp-action="Index" asp-route-filter="Pending" class="dropdown-item">Pending Approval</a>
+            <a asp-action="Index" asp-route-filter="Disapproved" class="dropdown-item">Disapproved</a>
+            <a asp-action="Index" asp-route-filter="Inactive" class="dropdown-item">Inactive</a>
         </div>
-        <div class="nav-volunteer-option" style="margin-left: auto">
-            <a asp-action="Create"><i class="fas fa-plus"></i> Add New Volunteer</a>
-        </div>
-
-        <!-- TEMPORARY SOLUTION I'M USING -->
-        @Html.ActionLink("Add New Volunteer", "Create", "Volunteers", null, new { @class = "btn btn-outline-dark m-2" })
-
     </div>
+    <a asp-action="Create" style="margin-left: auto; text-decoration: none;">
+        <div class="nav-entity-option">
+            <i class="fas fa-plus"></i> Add New Opportunity
+        </div>
+    </a>
+</div>
     <form asp-action="Index" method="get">
         <div class="input-group mb-0">
             <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentSearch"]" placeholder="Search Volunteers">
@@ -70,10 +65,22 @@
                     <td>@x.Availability</td>
                     <td>@x.ApprovalStatus</td>
                     <td>
-                        <div class="volunteer-options">
-                            @Html.ActionLink("Edit", "Edit", "Volunteers", @x.VolunteerId, new { @class = "btn btn-outline-info" })
-                            @Html.ActionLink("Delete", "Delete", "Volunteers", x.VolunteerId, new { @class = "btn btn-outline-danger" })
+                        <div class="button-options">
+                            <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@x.VolunteerId"><span style="display: block">Edit</span></a>
+                            <div>
+                                <button class="btn btn-outline-danger dropdown-toggle" id="deleteDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete</button>
+                                <div class="dropdown-menu" aria-labelledby="deleteDrop">
+                                    <div class="container-fluid">
+                                        <form method="post">
+                                            <p>Are you sure?</p>
+                                            <button type="submit" asp-action="Delete" asp-route-id="@x.VolunteerId" class="btn btn-outline-danger">Yes</button>
+                                            <button type="button" class="btn btn-outline-primary">No</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <a class="btn btn-outline-secondary" asp-action="GetMatches" asp-route-id="@x.VolunteerId"><span style="display: block">Volunteer Matches</span></a>
                     </td>
                 </tr>
             }

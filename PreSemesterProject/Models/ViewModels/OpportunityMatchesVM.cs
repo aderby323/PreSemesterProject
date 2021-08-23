@@ -3,9 +3,9 @@ using PreSemesterProject.Models.DBModels;
 
 namespace PreSemesterProject.Models.ViewModels
 {
-    public class MatchesViewModel
+    public class OpportunityMatchesVM
     {
-        public List<DBModels.Volunteer> Volunteers { get; set; }
+        public List<Volunteer> Volunteers { get; set; }
         public string OpportunityTitle { get; set; }
     }
 }
