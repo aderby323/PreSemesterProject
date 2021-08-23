@@ -8,6 +8,8 @@
 
 <div class="container">
     <form asp-action="Edit" method="post">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.VolunteerId)
         <div class="row">
             <div class="col-4">
                 <label asp-for="Username" class="form-label">Username</label>

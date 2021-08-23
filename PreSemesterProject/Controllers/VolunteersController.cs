@@ -24,11 +24,12 @@ namespace PreSemesterProject.Controllers
             ViewData["CurrentSearch"] = searchString;
             IEnumerable<Volunteer> volunteers = _context.Volunteers;
 
-            if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }
+            if (!string.IsNullOrEmpty(filter)) { filter = filter.ToLower(); }
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                volunteers = volunteers.Where(x => x.Username.Contains(searchString) || x.FirstName.Contains(searchString) || x.LastName.Contains(searchString));
+                searchString = searchString.ToLower();
+                volunteers = volunteers.Where(x => x.Username.ToLower().Contains(searchString) || x.FirstName.ToLower().Contains(searchString) || x.LastName.ToLower().Contains(searchString));
             }
 
             switch (filter)
@@ -43,7 +44,7 @@ namespace PreSemesterProject.Controllers
                 case "pending":
                     volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Pending).OrderBy(x => x.Username);
                     break;
-                case "disapproved":
+                case "denied":
                     volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Denied).OrderBy(x => x.Username);
                     break;
                 case "inactive":
@@ -107,9 +108,22 @@ namespace PreSemesterProject.Controllers
         {
             if (!ModelState.IsValid) { return View(volunteer); }
 
-            Volunteer oldVolunteer = _context.Volunteers.Where(x => x.Username == volunteer.Username).FirstOrDefault();
+            Volunteer oldVolunteer = _context.Volunteers.Where(x => x.VolunteerId == volunteer.VolunteerId).FirstOrDefault();
 
-            oldVolunteer = volunteer;
+            oldVolunteer.Username = volunteer.Username;
+            oldVolunteer.FirstName = volunteer.FirstName;
+            oldVolunteer.LastName = volunteer.LastName;
+            oldVolunteer.SkillsAndInterests = volunteer.SkillsAndInterests;
+            oldVolunteer.Availability = volunteer.Availability;
+            oldVolunteer.HomePhone = volunteer.HomePhone;
+            oldVolunteer.WorkPhone = volunteer.WorkPhone;
+            oldVolunteer.CellPhone = volunteer.CellPhone;
+            oldVolunteer.EducationBackground = volunteer.EducationBackground;
+            oldVolunteer.CurrentLicenses = volunteer.CurrentLicenses;
+            oldVolunteer.DlonFile = volunteer.DlonFile;
+            oldVolunteer.SsonFile = volunteer.SsonFile;
+            oldVolunteer.PreferredCenter = volunteer.PreferredCenter;
+            oldVolunteer.ApprovalStatus = volunteer.ApprovalStatus;
 
             _context.Update(oldVolunteer);
             _context.SaveChanges();

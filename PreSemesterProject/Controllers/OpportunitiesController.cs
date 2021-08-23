@@ -25,11 +25,12 @@ namespace PreSemesterProject.Controllers
             ViewData["CurrentSearch"] = searchString;
             IEnumerable<Opportunity> opportunities = _context.Opportunities;
 
-            if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }
+            if (!string.IsNullOrEmpty(filter)) { filter = filter.ToLower(); }
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                opportunities = opportunities.Where(x => x.Title.ToLower().Contains(searchString.ToLower()));
+                searchString = searchString.ToLower();
+                opportunities = opportunities.Where(x => x.Title.ToLower().Contains(searchString));
             }
 
             switch (filter)

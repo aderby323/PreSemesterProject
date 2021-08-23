@@ -20,16 +20,16 @@
         </div>
         <div class="dropdown-menu" aria-labelledby="volunteerFilter">
             <a asp-action="Index" class="dropdown-item">None</a>
-            <a asp-action="Index" asp-route-filter="ApprovedPending" class="dropdown-item">Approved / Pending Approval</a>
-            <a asp-action="Index" asp-route-filter="Approved" class="dropdown-item">Approved</a>
-            <a asp-action="Index" asp-route-filter="Pending" class="dropdown-item">Pending Approval</a>
-            <a asp-action="Index" asp-route-filter="Disapproved" class="dropdown-item">Disapproved</a>
-            <a asp-action="Index" asp-route-filter="Inactive" class="dropdown-item">Inactive</a>
+            <a asp-action="Index" asp-route-filter="approvedpending" class="dropdown-item">Approved / Pending Approval</a>
+            <a asp-action="Index" asp-route-filter="approved" class="dropdown-item">Approved</a>
+            <a asp-action="Index" asp-route-filter="pending" class="dropdown-item">Pending Approval</a>
+            <a asp-action="Index" asp-route-filter="denied" class="dropdown-item">Denied</a>
+            <a asp-action="Index" asp-route-filter="inactive" class="dropdown-item">Inactive</a>
         </div>
     </div>
     <a asp-action="Create" style="margin-left: auto; text-decoration: none;">
         <div class="nav-entity-option">
-            <i class="fas fa-plus"></i> Add New Opportunity
+            <i class="fas fa-plus"></i> Add New Volunteer
         </div>
     </a>
 </div>
@@ -50,7 +50,6 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Preferred Centers</th>
-                <th>Skills / Interests</th>
                 <th>Availability</th>
                 <th>Approval Status</th>
             </tr>
@@ -61,7 +60,6 @@
                     <td>@x.FirstName</td>
                     <td>@x.LastName</td>
                     <td>@x.PreferredCenter</td>
-                    <td>@x.SkillsAndInterests</td>
                     <td>@x.Availability</td>
                     <td>@x.ApprovalStatus</td>
                     <td>
@@ -80,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-outline-secondary" asp-action="GetMatches" asp-route-id="@x.VolunteerId"><span style="display: block">Volunteer Matches</span></a>
+                        <a class="btn btn-outline-secondary" asp-action="GetMatches" asp-route-id="@x.VolunteerId"><span style="display: block">Opportunity Matches</span></a>
                     </td>
                 </tr>
             }
