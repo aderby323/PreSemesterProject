@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PreSemesterProject.Models.DBModels;
-using PreSemesterProject.Repository;
 using PreSemesterProject.Services;
 using PreSemesterProject.Services.Interfaces;
 using System;
@@ -32,7 +31,6 @@ namespace PreSemesterProject
             });
 
             services.AddTransient<IAuthService, AuthService>();
-            services.AddSingleton<FakeRepository>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => 

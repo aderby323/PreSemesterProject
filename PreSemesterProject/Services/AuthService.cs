@@ -1,6 +1,5 @@
 ﻿using PreSemesterProject.Models.DBModels;
 using PreSemesterProject.Models.ViewModels;
-using PreSemesterProject.Repository;
 using PreSemesterProject.Services.Interfaces;
 using System;
 using System.Linq;
@@ -12,12 +11,10 @@ namespace PreSemesterProject.Services
     public class AuthService : IAuthService
     {
 
-        private FakeRepository _repository;
         private readonly VolunteerManagementSystemContext _context;
 
-        public AuthService(FakeRepository repository, VolunteerManagementSystemContext context)
+        public AuthService(VolunteerManagementSystemContext context)
         {
-            _repository = repository;
             _context = context;
         }
 

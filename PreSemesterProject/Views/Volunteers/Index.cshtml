@@ -1,4 +1,4 @@
-﻿@model List<PreSemesterProject.Models.Volunteer>
+﻿@model List<PreSemesterProject.Models.DBModels.Volunteer>
 
 <div class="container">
     <h2>Volunteers</h2>
@@ -32,8 +32,6 @@
         </div>
         <div class="nav-volunteer-option" style="margin-left: auto">
             <a asp-action="Create"><i class="fas fa-plus"></i> Add New Volunteer</a>
-
-            <!-- <i class="fas fa-plus"></i> Add New Volunteer -->
         </div>
 
         <!-- TEMPORARY SOLUTION I'M USING -->
@@ -60,7 +58,6 @@
                 <th>Skills / Interests</th>
                 <th>Availability</th>
                 <th>Approval Status</th>
-                <th>Inactive</th>
             </tr>
             @foreach (var x in Model)
             {
@@ -68,20 +65,14 @@
                     <td>@x.Username</td>
                     <td>@x.FirstName</td>
                     <td>@x.LastName</td>
-                    <td>@x.PreferredCenters</td>
+                    <td>@x.PreferredCenter</td>
                     <td>@x.SkillsAndInterests</td>
                     <td>@x.Availability</td>
-                    <td>@x.VolunteerApprovalStatus</td>
-                    <td>@x.Inactive</td>
+                    <td>@x.ApprovalStatus</td>
                     <td>
                         <div class="volunteer-options">
-                            <!--
-                            <button class="btn btn-outline-info" type="submit" asp-action="Edit" asp-route-id="@x.Username">Edit</button>
-                            <button class="btn btn-outline-danger" type="submit" asp-action="Delete" asp-route-id="@x.Username">Delete</button>
-                            -->
-
-                            @Html.ActionLink("Edit", "Edit", "Volunteers", @x.Username, new { @class = "btn btn-outline-info" })
-                            @Html.ActionLink("Delete", "Delete", "Volunteers", x.Username, new { @class = "btn btn-outline-danger" })
+                            @Html.ActionLink("Edit", "Edit", "Volunteers", @x.VolunteerId, new { @class = "btn btn-outline-info" })
+                            @Html.ActionLink("Delete", "Delete", "Volunteers", x.VolunteerId, new { @class = "btn btn-outline-danger" })
                         </div>
                     </td>
                 </tr>

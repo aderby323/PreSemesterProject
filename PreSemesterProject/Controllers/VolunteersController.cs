@@ -4,6 +4,7 @@ using PreSemesterProject.Models;
 using PreSemesterProject.Models.DBModels;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace PreSemesterProject.Controllers
 {
@@ -58,30 +59,6 @@ namespace PreSemesterProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(string username)
-        {
-            Models.DBModels.Volunteer volunteer = _context.Volunteers.Where(x => x.Username.Equals(username)).FirstOrDefault();
-
-        //    if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
-
-        //    return View(volunteer);
-        //}
-
-        [HttpPost]
-        public IActionResult Edit(Models.DBModels.Volunteer volunteer)
-        {
-            if (!ModelState.IsValid) { return BadRequest(); }
-
-        //    return Ok(volunteer);
-        //}
-
-        [HttpPost]
-        public IActionResult Delete(string username)
-        {
-            return Ok(username);
-        }
-
-        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -92,53 +69,51 @@ namespace PreSemesterProject.Controllers
         {
             if (!ModelState.IsValid) { return View(); }
 
+            if (_context.Volunteers.Where(x => x.Username.Equals(volunteer.Username, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() != null) { return BadRequest("Volunteer already exists in the database"); }
+
             _context.Volunteers.Add(volunteer);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-
-
-
-
-
-        /* TEST COPIED FROM OPPORTUNITY SIDE */
         [HttpPost]
-        public IActionResult Delete(string username)
+        public IActionResult Delete(int id)
         {
-            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
+            Models.DBModels.Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
 
-            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
+            if (volunteer is null) { return NotFound($"Volunteer not found."); }
 
-            _fakeRepository.Volunteers.Remove(volunteer);
+            _context.Volunteers.Remove(volunteer);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
-        public IActionResult Edit(string username)
+        public IActionResult Edit(int id)
         {
-            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.Username == username).FirstOrDefault();
+            Models.DBModels.Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
 
-            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
+            if (volunteer is null) { return NotFound($"Volunteer not found."); }
 
             return View(volunteer);
         }
 
         [HttpPost]
-        public IActionResult Edit(Volunteer volunteer)
+        public IActionResult Edit(Models.DBModels.Volunteer volunteer)
         {
             if (!ModelState.IsValid) { return View(volunteer); }
-            Volunteer oldVolunteer = _fakeRepository.Volunteers.Where(x => x.Username == volunteer.Username).FirstOrDefault();
 
-            Delete(oldVolunteer.Username);
-            Create(volunteer);
+            Models.DBModels.Volunteer oldVolunteer = _context.Volunteers.Where(x => x.Username == volunteer.Username).FirstOrDefault();
+
+            oldVolunteer = volunteer;
+
+            _context.Update(oldVolunteer);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
 
         }
-
     }
 }
