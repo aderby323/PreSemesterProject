@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PreSemesterProject.Repository;
+using PreSemesterProject.Models.DBModels;
 using PreSemesterProject.Services;
 using PreSemesterProject.Services.Interfaces;
 using System;
@@ -25,9 +26,11 @@ namespace PreSemesterProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<VolunteerManagementSystemContext>(options => {
+                options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=VolunteerManagementSystem;Trusted_Connection=True;");
+            });
 
             services.AddTransient<IAuthService, AuthService>();
-            services.AddSingleton<FakeRepository>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => 

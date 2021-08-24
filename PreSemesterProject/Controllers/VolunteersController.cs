@@ -1,102 +1,63 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PreSemesterProject.Models;
-using PreSemesterProject.Repository;
-using System;
+using PreSemesterProject.Models.DBModels;
+using PreSemesterProject.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PreSemesterProject.Controllers
 {
     [Authorize("Admin")]
     public class VolunteersController : Controller
     {
-        //private List<Opportunity> _volunteers = new List<Opportunity>();
-        private FakeRepository _fakeRepository;
+        private readonly VolunteerManagementSystemContext _context;
 
-        public VolunteersController(FakeRepository fakeRepository)
+        public VolunteersController(VolunteerManagementSystemContext context)
         {
-            _fakeRepository = fakeRepository;
+            _context = context;
         }
 
 
         public IActionResult Index([FromQuery] string filter, string searchString)
         {
             ViewData["CurrentSearch"] = searchString;
-            IEnumerable<Volunteer> volunteers = _fakeRepository.Volunteers;
-            //IEnumerable<Volunteer> volunteers = _volunteers;
+            IEnumerable<Volunteer> volunteers = _context.Volunteers;
 
-            if (!string.IsNullOrEmpty(filter)) { filter.ToLower(); }
+            if (!string.IsNullOrEmpty(filter)) { filter = filter.ToLower(); }
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                volunteers = volunteers.Where(x => x.Username.Contains(searchString) || x.FirstName.Contains(searchString) || x.LastName.Contains(searchString));
-            } // end if
+                searchString = searchString.ToLower();
+                volunteers = volunteers.Where(x => x.Username.ToLower().Contains(searchString) || x.FirstName.ToLower().Contains(searchString) || x.LastName.ToLower().Contains(searchString));
+            }
 
             switch (filter)
             {
                 
-                case "Approved / Pending Approval":
-                    Console.WriteLine("Showing volunteers which are Approved or Pending Approval");
-                    volunteers = volunteers.Where(x => x.VolunteerApprovalStatus == ApprovalStatus.Approved || x.VolunteerApprovalStatus == ApprovalStatus.Pending).OrderBy(x => x.Username);
+                case "approvedpending":
+                    volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Approved || x.ApprovalStatus == ApprovalStatus.Pending).OrderBy(x => x.Username);
                     break;
-                case "Approved":
-                    Console.WriteLine("Showing volunteers which are Approved");
-                    volunteers = volunteers.Where(x => x.VolunteerApprovalStatus == ApprovalStatus.Approved).OrderBy(x => x.Username);
+                case "approved":
+                    volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Approved).OrderBy(x => x.Username);
                     break;
-                case "Pending":
-                    Console.WriteLine("Showing volunteers which are Pending Approval");
-                    volunteers = volunteers.Where(x => x.VolunteerApprovalStatus == ApprovalStatus.Pending).OrderBy(x => x.Username);
+                case "pending":
+                    volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Pending).OrderBy(x => x.Username);
                     break;
-                case "Disapproved":
-                    Console.WriteLine("Showing volunteers which are Disapproved");
-                    volunteers = volunteers.Where(x => x.VolunteerApprovalStatus == ApprovalStatus.Denied).OrderBy(x => x.Username);
+                case "denied":
+                    volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Denied).OrderBy(x => x.Username);
                     break;
-                case "Inactive":
-                    Console.WriteLine("Showing volunteers which are Inactive");
-                    volunteers = volunteers.Where(x => x.Inactive == true).OrderBy(x => x.Username);
+                case "inactive":
+                    volunteers = volunteers.Where(x => x.ApprovalStatus == ApprovalStatus.Inactive).OrderBy(x => x.Username);
                     break;
                 
                 default:
-                    Console.WriteLine("Showing all volunteers");
-                    volunteers = volunteers.OrderBy(x => x.VolunteerID);
+                    volunteers = volunteers.OrderBy(x => x.Username);
                     break;
-            } // end switch
+            }
 
             return View(volunteers.ToList());
-        } // end Index Action
-
-        [HttpGet]
-        public IActionResult Edit(string username)
-        {
-            Volunteer volunteer = _fakeRepository.Volunteers.Where(x => x.VolunteerID == username).FirstOrDefault();
-
-            if (volunteer is null) { return NotFound($"Volunteer with username: {username} not found."); }
-
-            return View(volunteer);
         }
-
-        [HttpPost]
-        public IActionResult Edit(Volunteer volunteer)
-        {
-            if (!ModelState.IsValid) { return BadRequest(); }
-
-            return Ok(volunteer);
-        }
-
-        [HttpPost]
-        public IActionResult Delete(string username)
-        {
-            return Ok(username);
-        }
-
-        /*
-        public IActionResult Create()
-        {
-            return View("~/Views/Volunteers/Create.cshtml");
-        }
-        */
 
         [HttpGet]
         public IActionResult Create()
@@ -109,46 +70,105 @@ namespace PreSemesterProject.Controllers
         {
             if (!ModelState.IsValid) { return View(); }
 
-            
+            Volunteer existing = _context.Volunteers.Where(x => x.Username.Equals(volunteer.Username)).FirstOrDefault();
 
-            volunteer.VolunteerID = Guid.NewGuid().ToString();
+            if (existing != null) { return BadRequest("Volunteer already exists in the database"); }
 
-            _fakeRepository.Volunteers.Add(volunteer);
+            _context.Volunteers.Add(volunteer);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-
-
-
-
-
-
-
-
-
-        /*
-        public IActionResult Index()
+        [HttpPost]
+        public IActionResult Delete(int id)
         {
-            //return Ok("Volunteers");
-            return View("~/Views/Volunteers/Index.cshtml");
-        }
-        
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
 
-        public IActionResult Filters()
-        {
-            return View("~/Views/Volunteers/VolunteersFilters.cshtml");
+            if (volunteer is null) { return NotFound($"Volunteer not found."); }
+
+            _context.Volunteers.Remove(volunteer);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Edit()
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            return View("~/Views/Volunteers/VolunteersEdit.cshtml");
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
+
+            if (volunteer is null) { return NotFound($"Volunteer not found."); }
+
+            return View(volunteer);
         }
 
-        public IActionResult Add()
+        [HttpPost]
+        public IActionResult Edit(Volunteer volunteer)
         {
-            return View("~/Views/Volunteers/VolunteersAdd.cshtml");
+            if (!ModelState.IsValid) { return View(volunteer); }
+
+            Volunteer oldVolunteer = _context.Volunteers.Where(x => x.VolunteerId == volunteer.VolunteerId).FirstOrDefault();
+
+            oldVolunteer.Username = volunteer.Username;
+            oldVolunteer.FirstName = volunteer.FirstName;
+            oldVolunteer.LastName = volunteer.LastName;
+            oldVolunteer.SkillsAndInterests = volunteer.SkillsAndInterests;
+            oldVolunteer.Availability = volunteer.Availability;
+            oldVolunteer.HomePhone = volunteer.HomePhone;
+            oldVolunteer.WorkPhone = volunteer.WorkPhone;
+            oldVolunteer.CellPhone = volunteer.CellPhone;
+            oldVolunteer.EducationBackground = volunteer.EducationBackground;
+            oldVolunteer.CurrentLicenses = volunteer.CurrentLicenses;
+            oldVolunteer.DlonFile = volunteer.DlonFile;
+            oldVolunteer.SsonFile = volunteer.SsonFile;
+            oldVolunteer.PreferredCenter = volunteer.PreferredCenter;
+            oldVolunteer.ApprovalStatus = volunteer.ApprovalStatus;
+
+            _context.Update(oldVolunteer);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+
         }
-        */
+
+        [HttpGet]
+        public IActionResult GetMatches(int id)
+        {
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
+
+            if (volunteer is null) { return View(); }
+
+            VolunteerMatchesVM matches = new VolunteerMatchesVM()
+            {
+                VolunteerUsername = volunteer.Username,
+                Opportunities = _context.Opportunities.Where(x => x.Location == volunteer.PreferredCenter).OrderBy(x => x.Title).ToList()
+            };
+
+            return View(matches);
+        }
+
+        [HttpGet]
+        public IActionResult AddEmergencyInfo(int id)
+        {
+            Volunteer volunteer = _context.Volunteers.Where(x => x.VolunteerId == id).FirstOrDefault();
+
+            if (volunteer is null) { return View(); }
+
+            return View(new VolunteerEmergencyVM() { VolunteerID = id } );
+        }
+
+        [HttpPost]
+        public IActionResult AddEmergencyInfo(VolunteerEmergencyVM info)
+        {
+            if (!ModelState.IsValid) { return View(); }
+
+            info.Contact.VolunteerId = info.VolunteerID;
+
+            _context.Add(info.Contact);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

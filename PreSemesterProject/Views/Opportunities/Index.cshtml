@@ -1,4 +1,4 @@
-﻿@model List<PreSemesterProject.Models.Opportunity>
+﻿@model List<PreSemesterProject.Models.DBModels.Opportunity>
 
 <div class="container">
     <h2 class="entity-header">Opportunities</h2>
@@ -63,21 +63,21 @@
                     <td>@x.Date</td>
                     <td>
                         <div class="button-options">
-                            <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@x.OpportunityID"><span style="display: block">Edit</span></a>
+                            <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@x.OpportunityId"><span style="display: block">Edit</span></a>
                             <div>
                                 <button class="btn btn-outline-danger dropdown-toggle" id="deleteDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete</button>
                                 <div class="dropdown-menu" aria-labelledby="deleteDrop">
                                     <div class="container-fluid">
                                         <form method="post">
                                             <p>Are you sure?</p>
-                                            <button type="submit" asp-action="Delete" asp-route-id="@x.OpportunityID" class="btn btn-outline-danger">Yes</button>
+                                            <button type="submit" asp-action="Delete" asp-route-id="@x.OpportunityId" class="btn btn-outline-danger">Yes</button>
                                             <button type="button" class="btn btn-outline-primary">No</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-outline-secondary" asp-action="GetMatches" asp-route-id="@x.OpportunityID"><span style="display: block">Volunteer Matches</span></a>
+                        <a class="btn btn-outline-secondary" asp-action="GetMatches" asp-route-id="@x.OpportunityId"><span style="display: block">Volunteer Matches</span></a>
                     </td>
                 </tr>
             }

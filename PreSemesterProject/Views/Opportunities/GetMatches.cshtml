@@ -1,4 +1,4 @@
-﻿@model PreSemesterProject.Models.ViewModels.MatchesViewModel
+﻿@model PreSemesterProject.Models.ViewModels.OpportunityMatchesVM
 
 <div class="container entity-header">
     <h2>@Model.OpportunityTitle</h2>
@@ -37,16 +37,16 @@
             <tr>
                 <td>@x.Username</td>
                 <td>@x.FirstName @x.LastName</td>
-                <td>@x.PreferredCenters</td>
+                <td>@x.PreferredCenter</td>
                 <td>@x.Availability</td>
-                <td>@x.VolunteerApprovalStatus</td>
+                <td>@x.ApprovalStatus</td>
             </tr>
         }
     </table>
+}
     <div style="margin-top: 20px">
         <em>
             The systems currently matches potential volunteers with opportunities through the volunteer's preferred center and the location of the opportunity. Only approved and pending volunteers are shown.
         </em>
     </div>
     <a class="btn btn-outline-danger" asp-action="Index" style="margin-top: 10px"><span style="display: block;">Back</span></a>
-}

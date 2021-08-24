@@ -193,6 +193,8 @@ body {
 .volunteers-table {
     font-family: Helvetica, Arial, sans-serif;
     border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
     margin-top: 20px;
 }
 

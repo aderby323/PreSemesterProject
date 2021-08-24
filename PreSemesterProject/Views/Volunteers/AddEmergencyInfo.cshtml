@@ -1,0 +1,48 @@
+﻿@model PreSemesterProject.Models.ViewModels.VolunteerEmergencyVM
+
+<h2>Create Volunteer</h2>
+
+<div class="container"></div>
+<div class="container">
+    <form asp-action="Create" method="post">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.VolunteerID)
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="Contact.Ecname" class="form-label">Full Name</label>
+                <input asp-for="Contact.Ecname" type="text" class="form-control">
+                <span asp-validation-for="Contact.Ecname" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label asp-for="Contact.EcemailAddress" class="form-label">Email Address</label>
+                <input asp-for="Contact.EcemailAddress" type="email" class="form-control">
+                <span asp-validation-for="Contact.EcemailAddress" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="Contact.EchomePhone" class="form-label">Home Phone (Use format: xxx-xxx-xxxx)</label>
+                <input asp-for="Contact.EchomePhone" type="text" class="form-control">
+                <span asp-validation-for="Contact.EchomePhone" class="text-danger"></span>
+
+            </div>
+            <div class="col-4">
+                <label asp-for="Contact.EcworkPhone" class="form-label">Work Phone (Use format: xxx-xxx-xxxx)</label>
+                <input asp-for="Contact.EcworkPhone" type="text" class="form-control">
+                <span asp-validation-for="Contact.EcworkPhone" class="text-danger"></span>
+
+            </div>
+            <div class="col-4">
+                <label asp-for="Contact.EccellPhone" class="form-label">Cell Phone (Use format: xxx-xxx-xxxx)</label>
+                <input asp-for="Contact.EccellPhone" type="text" class="form-control">
+                <span asp-validation-for="Contact.EccellPhone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="button-options" style="margin-top: 10px;">
+            <button type="submit" asp-action="AddEmergencyInfo" class="btn btn-outline-info">Add Contact</button>
+            <button asp-action="Index" class="btn btn-outline-danger">Back</button>
+        </div>
+    </form>
+</div>
